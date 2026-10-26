@@ -6,6 +6,7 @@
   --font:"Noto Sans JP",system-ui,-apple-system,"Hiragino Sans",sans-serif;--num:"Inter","Noto Sans JP",sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{font-family:var(--font);color:var(--ink);background:var(--ice-2);line-height:1.8;font-size:16px;overflow-x:hidden}
 img,svg{display:block;max-width:100%}
