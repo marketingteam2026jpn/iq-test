@@ -3,172 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IQテスト 結果 | AI-KNOW</title>
+<title>IQテスト結果が保存されました | AI-KNOW</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-.top{color:#fff;background:radial-gradient(900px 500px at 20% 0%,rgba(79,163,255,.45),transparent 60%),radial-gradient(700px 500px at 100% 100%,rgba(30,79,216,.6),transparent 60%),linear-gradient(160deg,#0B1F4B 0%,#102A6B 55%,#1E4FD8 140%);padding:56px 0 120px;text-align:center}
-.top .lbl{font-size:13px;letter-spacing:.16em;font-weight:700;color:var(--sky-l)}
-.top .iq{font-family:var(--num);font-size:clamp(84px,16vw,150px);font-weight:900;line-height:1;margin:6px 0 2px;background:linear-gradient(180deg,#fff,#BFDBFF);-webkit-background-clip:text;background-clip:text;color:transparent}
-.top .cls{font-size:22px;font-weight:900;margin-top:4px}
-.top .pct{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:10px 20px;border-radius:999px;font-weight:700;margin-top:14px}
-.top .pct b{font-family:var(--num);color:var(--gold);font-size:22px}
+body{background:#fff}
+.saved{text-align:center;color:var(--sub);font-size:14px;padding:30px 0 12px;letter-spacing:.08em}
+.summary{width:min(880px,100% - 32px);margin:0 auto;background:linear-gradient(160deg,#0B1F4B,#122A66);color:#fff;border-radius:18px;padding:28px 24px;text-align:center;box-shadow:var(--shadow)}
+.summary .time{font-size:17px;margin-bottom:8px}
+.summary .time b{font-family:var(--num);color:var(--gold)}
+.summary .sw{font-size:19px;font-weight:700;line-height:1.7}
+.summary .sw b{color:#FFD37A}
+.summary .sw .lo{color:#9CCBFF}
 
-.panel{width:min(880px,100% - 32px);margin:-80px auto 0;display:grid;gap:22px}
-.card{padding:30px 32px}
-@media(max-width:600px){.card{padding:24px 18px}}
-.card h2{font-size:14px;letter-spacing:.14em;color:var(--blue);font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.card h2::before{content:"";width:18px;height:2px;background:var(--blue)}
-.curve svg{width:100%;height:auto}
-.curve p{font-size:14.5px;color:var(--sub);margin-top:10px;text-align:center}
+.teaser{width:min(880px,100% - 32px);margin:22px auto 0;display:grid;grid-template-columns:1fr 1.3fr;gap:18px;align-items:stretch}
+.teaser .card{padding:22px;position:relative;overflow:hidden}
+.teaser h3{font-size:13px;letter-spacing:.14em;color:var(--blue);font-weight:800;margin-bottom:10px}
+.teaser .iqbox{text-align:center}
+.teaser .iqbox .n{font-family:var(--num);font-size:84px;font-weight:900;color:var(--navy);line-height:1;filter:blur(10px);user-select:none}
+.teaser .iqbox .n2{font-family:var(--num);font-size:84px;font-weight:900;color:var(--navy);line-height:1}
+.teaser .iqbox .lbl{font-size:13px;color:var(--sub);margin-top:6px}
+.teaser .curve svg{width:100%;height:auto;filter:blur(5px)}
+.teaser .lockmark{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.teaser .lockmark span{white-space:nowrap;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;color:var(--navy);display:inline-flex;gap:8px;align-items:center;box-shadow:var(--shadow-s)}
+@media(max-width:700px){.teaser{grid-template-columns:1fr}}
 
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.stats div{background:var(--ice);border-radius:14px;padding:16px;text-align:center}
-.stats b{display:block;font-family:var(--num);font-size:30px;font-weight:900;color:var(--navy)}
-.stats span{font-size:13px;color:var(--sub);font-weight:700}
-@media(max-width:600px){.stats{grid-template-columns:1fr 1fr}}
+.items{width:min(880px,100% - 32px);margin:22px auto 0;display:grid;gap:12px}
+.items div{display:flex;align-items:center;gap:16px;border:2px solid var(--blue);border-radius:8px;padding:18px 20px;font-size:19px;font-weight:700;color:var(--ink);background:#fff}
+.items b{width:44px;height:44px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-family:var(--num);font-size:15px;flex:0 0 44px}
+.items small{display:block;font-size:13px;color:var(--sub);font-weight:500;margin-top:2px}
 
-.dl{display:grid;gap:14px}
-.dl .r{display:grid;grid-template-columns:150px 1fr 56px;gap:14px;align-items:center;font-size:15px;font-weight:700;color:var(--navy)}
-.dl .r small{display:block;font-weight:500;color:var(--sub);font-size:12px}
-.dl .v{font-family:var(--num);text-align:right;color:var(--blue)}
-@media(max-width:600px){.dl .r{grid-template-columns:110px 1fr 46px;font-size:14px}}
-.sw{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
-.sw small{display:block;font-size:12px;color:var(--sub);font-weight:700;margin-bottom:2px}
-.sw b{font-size:18px;color:var(--navy)}
+.cta{width:min(880px,100% - 32px);margin:26px auto 0;text-align:center}
+.cta .btn-red{background:linear-gradient(135deg,#E8333F,#F2535D);color:#fff;padding:22px 20px;font-size:24px;width:min(640px,100%);border-radius:10px;box-shadow:0 14px 34px rgba(232,51,63,.35)}
+.cta .btn-red:hover{transform:translateY(-2px)}
+.cta .btn-red .arr{background:rgba(255,255,255,.25)}
+.cta .note{font-size:13px;color:var(--sub);margin-top:12px}
 
-.lock{position:relative;overflow:hidden}
-.lock .blur{filter:blur(6px);user-select:none;pointer-events:none;opacity:.7}
-.lock .blur h3{font-size:18px;margin:14px 0 6px;color:var(--navy)}
-.lock .blur p{color:var(--sub);font-size:15px}
-.cert{border:3px double var(--navy);border-radius:10px;padding:26px;text-align:center;margin-top:16px;background:linear-gradient(180deg,#fff,var(--ice-2))}
-.cert .t{font-family:var(--num);letter-spacing:.3em;font-size:12px;color:var(--sub)}
-.cert .n{font-family:var(--num);font-size:52px;font-weight:900;color:var(--navy)}
-.lock .ov{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.95) 55%)}
-.lock .ov .box{text-align:center;max-width:460px;padding:20px}
-.lock .ov .box .ic{width:52px;height:52px;border-radius:50%;background:var(--navy);display:grid;place-items:center;margin:0 auto 12px}
-.lock .ov h3{font-size:22px;font-weight:900;color:var(--navy);margin-bottom:8px}
-.lock .ov p{color:var(--sub);font-size:14.5px;margin-bottom:16px}
-.lock .ov .price{font-family:var(--num);font-size:30px;font-weight:900;color:var(--navy);margin-bottom:14px}
-.lock .ov .price small{font-family:var(--font);font-size:13px;color:var(--sub);font-weight:500;margin-left:6px}
-.lock .ov .fine{font-size:12px;color:var(--sub);margin-top:12px;line-height:1.6}
-.inc{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
-.inc div{display:flex;gap:8px;align-items:flex-start;font-size:14px;color:var(--navy);font-weight:600}
-.inc div::before{content:"✓";color:var(--green);font-weight:900}
-@media(max-width:600px){.inc{grid-template-columns:1fr}}
-.actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:34px 16px 60px}
-.share{display:inline-flex;align-items:center;gap:8px;background:#000;color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;font-size:14px}
+.price{background:var(--blue);color:#fff;text-align:center;padding:60px 16px 70px;margin-top:40px}
+.price .p{font-size:30px;font-weight:900;display:flex;justify-content:center;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price .p b{font-family:var(--num);font-size:72px;line-height:1}
+.price .fine{display:inline-block;border-bottom:2px solid #fff;padding:4px 30px 10px;font-size:14px;margin-top:4px}
+.price .sr{font-size:12px;letter-spacing:.2em;color:#BFDBFF;margin-top:44px}
+.price h2{font-size:30px;font-weight:700;margin:4px 0 36px;padding-bottom:12px;border-bottom:2px solid rgba(255,255,255,.5);display:inline-block;min-width:min(700px,100%)}
+.pages{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:min(900px,100%);margin:0 auto}
+.page{background:#fff;color:var(--ink);border-radius:6px;padding:18px 16px;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.25);border:6px double #cfd6e6;min-height:230px;position:relative}
+.page h4{font-family:"Noto Serif JP",serif;font-size:16px;color:var(--navy);border-bottom:1px solid var(--navy);padding-bottom:6px;margin-bottom:10px;font-weight:600}
+.page p{font-size:11.5px;color:var(--sub);line-height:1.7}
+.page .big{font-family:var(--num);font-size:40px;font-weight:900;color:var(--navy);filter:blur(7px);margin:6px 0}
+.page .tag{display:inline-block;background:#DCEBFF;color:var(--navy);padding:3px 10px;font-size:12px;font-weight:700;margin-top:6px}
+.page .brand{position:absolute;right:12px;bottom:10px;font-family:var(--num);font-size:10px;color:var(--navy);font-weight:800}
+.page .bars{display:grid;gap:6px;margin:8px 0}
+.page .bars i{display:block;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--blue),var(--sky))}
+.page .cert{text-align:center;border:3px double #b8925a;padding:14px 8px;margin-top:6px}
+.page .cert .t{font-size:11px;letter-spacing:.2em;color:#b8925a}
+.page .cert .nm{font-size:18px;font-weight:700;color:#7a5a2b;margin:6px 0;filter:blur(5px)}
+.page .cert .sc{font-family:var(--num);font-size:30px;font-weight:900;color:#7a5a2b;filter:blur(6px)}
+@media(max-width:760px){.pages{grid-template-columns:1fr}.price .p b{font-size:56px}}
+.price .btn2{margin-top:40px}
+.back{text-align:center;padding:34px 0 50px;font-size:14px}
+.back a{color:var(--blue);font-weight:700}
 .disc{width:min(880px,100% - 32px);margin:0 auto 40px;font-size:12px;color:var(--sub);line-height:1.7}
 </style>
 </head>
 <body>
 <header class="hd"><div class="wrap">
   <a class="brand" href="index.html"><span class="mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 3a4 4 0 0 1 4 4v1a4 4 0 0 1 2 7v1a4 4 0 0 1-6 3.5A4 4 0 0 1 6 16v-1a4 4 0 0 1 2-7V7a4 4 0 0 1 4-4z"/><path d="M12 3v18"/></svg></span>AI-KNOW<small>IQテスト</small></a>
-  <a class="cta-s" href="#report">詳細レポート</a>
 </div></header>
 
-<section class="top"><div class="wrap">
-  <div class="lbl">YOUR IQ SCORE</div>
-  <div class="iq"><span id="iq" class="num">0</span></div>
-  <div class="cls" id="cls"></div>
-  <div class="pct">全体の上位 <b id="pct">—</b>%</div>
-</div></section>
-
-<div class="panel">
-  <div class="card curve">
-    <h2>正規分布上のあなたの位置</h2>
-    <div id="curve"></div>
-    <p id="curveText"></p>
-  </div>
-  <div class="card">
-    <h2>テスト結果</h2>
-    <div class="stats"><div><b id="sCorrect"></b><span>正答数 / 40問</span></div><div><b id="sTime"></b><span>所要時間</span></div><div><b id="sBonus"></b><span>速度ボーナス</span></div></div>
-  </div>
-  <div class="card">
-    <h2>認知プロファイル</h2>
-    <div class="dl" id="dl"></div>
-    <div class="sw"><div><small>最も強い領域</small><b id="strong"></b></div><div><small>伸ばす余地</small><b id="weak"></b></div></div>
-  </div>
-
-  <div class="card lock" id="report">
-    <div class="blur">
-      <h2>詳細レポート</h2>
-      <h3>領域別の詳しい解説</h3><p>図形推理は2つ以上の規則が同時に成り立つ問題でも正答しており、流動性推理が安定した強みです。一方で数的推理は差分の規則で時間を使っており、数列を「差の列」に置き換える習慣で改善が見込めます。</p>
-      <h3>伸ばし方</h3><p>短期記憶は訓練で伸びやすい領域です。1日5分のn-back課題を2週間続けると、保持できる情報量が目に見えて変わります。</p>
-      <div class="cert"><div class="t">CERTIFICATE OF IQ SCORE</div><div class="n" id="certIq"></div><div>AI-KNOW IQ TEST</div></div>
-    </div>
-    <div class="ov"><div class="box">
-      <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
-      <h3>詳細レポートとIQ証明書</h3>
-      <p>4領域の詳しい解説、伸ばし方、同年代との比較、あなたの名前入りIQ証明書（PDF）をまとめた専用レポートです。</p>
-      <div class="price">¥980<small>買い切り・自動更新なし</small></div>
-      <a class="btn btn-gold" id="buy" href="#checkout">レポートを取得する →</a>
-      <div class="inc"><div>4領域の詳細解説</div><div>IQ証明書（PDF）</div><div>領域別の伸ばし方</div><div>同年代・職種との比較</div></div>
-      <p class="fine">一度の決済で以後は無料で閲覧できます。サブスクリプションへの自動登録はありません。</p>
-    </div></div>
-  </div>
+<p class="saved">- IQテスト結果が保存されました -</p>
+<div class="summary">
+  <div class="time">あなたの回答時間は <b id="time">00:00</b> でした。</div>
+  <div class="sw"><b id="strong"></b> が高く、<span class="lo" id="weak"></span> が低い可能性が高いです。</div>
 </div>
 
-<div class="actions">
-  <a class="share" id="share" href="#" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M18.2 2h3.3l-7.3 8.3L22.8 22h-6.7l-5.2-6.8L4.8 22H1.5l7.8-8.9L1.2 2h6.8l4.7 6.2L18.2 2zm-1.2 18h1.8L7.1 3.9H5.1L17 20z"/></svg>結果をシェア</a>
-  <a class="btn btn-ghost" href="quiz.html">もう一度受ける</a>
-  <a class="btn btn-ghost" href="index.html">トップへ</a>
+<div class="teaser">
+  <div class="card iqbox"><h3>あなたの総合IQ</h3><div class="n" id="iqBlur">118</div><div class="lbl">分類：<span id="clsBlur" style="filter:blur(5px)">優秀</span>　上位 <span style="filter:blur(5px)">12</span>%</div><div class="lockmark"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>レポートで公開</span></div></div>
+  <div class="card curve"><h3>正規分布上のあなたの位置</h3><div id="curve"></div><div class="lockmark"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>レポートで公開</span></div></div>
 </div>
+
+<div class="items">
+  <div><b>01.</b><span>IQ評価<small>総合IQスコア・分類・上位何%か</small></span></div>
+  <div><b>02.</b><span>AI-KNOW IQ 認定証のお届け<small>氏名・スコア・受験日入りの認定書（PDF）</small></span></div>
+  <div><b>03.</b><span>項目別の能力分析<small>図形推理・数的推理・言語論理・記憶のスコアと受験者割合</small></span></div>
+  <div><b>04.</b><span>IQを伸ばすための助言<small>弱い領域に合わせたトレーニング方法</small></span></div>
+</div>
+
+<div class="cta">
+  <a class="btn btn-red" id="buy" href="#" data-checkout="CHECKOUT_URL">結果を見る <span class="arr">→</span></a>
+  <p class="note">結果は保存済みです。決済後すぐにレポートが表示されます。</p>
+</div>
+
+<section class="price">
+  <div class="p"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg><b>¥980</b>で全てを取得</div>
+  <div class="fine">※その他手数料等は一切ございません。買い切り・自動更新なし。</div>
+  <div class="sr">· SAMPLE REPORT</div>
+  <h2>サンプルレポート</h2>
+  <div class="pages">
+    <div class="page"><h4>あなたの総合IQ</h4><p>あなたのIQスコア（総合知能指数）は、</p><div class="big">126</div><p>あなたの総合知能スキルレベルは、</p><span class="tag">「極めて高い」</span><div class="brand">AI-KNOW</div></div>
+    <div class="page"><h4>知能スキル①　図形推理</h4><p>3×3の行列に隠れた規則を見抜く力。構造や空間を把握・推測する能力で、設計・分析・戦略立案に関係します。</p><div class="bars"><i style="width:82%"></i><i style="width:64%"></i><i style="width:75%"></i><i style="width:56%"></i></div><p>スコアと受験者割合、スキルレベル判定を領域ごとに掲載。</p><div class="brand">AI-KNOW</div></div>
+    <div class="page"><h4>認定書</h4><div class="cert"><div class="t">CERTIFICATE</div><div class="nm">山田 太郎</div><p>AI-KNOW IQテストの結果として、以下のスコアを取得されたことを認証いたします。</p><div class="sc">IQ 126</div><div class="t">DATE / SERIAL NUMBER</div></div><div class="brand">AI-KNOW</div></div>
+  </div>
+  <div class="btn2"><a class="btn btn-red" id="buy2" href="#" data-checkout="CHECKOUT_URL" style="background:linear-gradient(135deg,#E8333F,#F2535D);color:#fff;padding:20px 60px;font-size:22px;border-radius:10px">結果を見る →</a></div>
+</section>
+
+<p class="back"><a href="index.html">▲トップページに戻る</a></p>
 <p class="disc">本テストのIQスコアは、40問の正答率と解答時間から統計的に推定した参考値であり、WAISやMensaなどの標準化された知能検査とは異なります。医療・教育・採用等の判断には使用しないでください。</p>
 <footer class="ft"><div class="wrap"><div>© AI-KNOW</div><nav><a href="#">利用規約</a><a href="#">プライバシーポリシー</a><a href="#">特定商取引法に基づく表記</a></nav></div></footer>
 
 <script>
-var DOM={F:['図形推理','行列の規則を見抜く力'],N:['数的推理','数量の関係を導く力'],V:['言語・論理','言葉と含意を読む力'],M:['記憶','短期的に情報を保持する力']};
+var DOM={F:'図形推理',N:'数的推理',V:'言語・論理',M:'記憶'};
 function cls(iq){return iq>=130?'非常に優秀':iq>=120?'優秀':iq>=110?'平均より高い':iq>=90?'平均':iq>=80?'平均より低い':'境界域';}
 var raw=localStorage.getItem('aiknow_iq_result');
 if(!raw){location.replace('index.html');}
 else{
   var R=JSON.parse(raw);
-  var topPct=Math.max(0.1,100-R.pct);var topS=topPct<1?topPct.toFixed(1):Math.round(topPct);
-  var el=document.getElementById('iq'),t0=null,dur=1400;
-  function step(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/dur);p=1-Math.pow(1-p,3);el.textContent=Math.round(R.iq*p);if(p<1)requestAnimationFrame(step);}
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)el.textContent=R.iq;else requestAnimationFrame(step);
-  document.getElementById('cls').textContent=cls(R.iq);
-  document.getElementById('pct').textContent=topS;
-  document.getElementById('certIq').textContent=R.iq;
-
-  // 正規分布（σ区分・Mensa型）
+  var used=R.used!=null?R.used:(1200-R.timeLeft);
+  document.getElementById('time').textContent=(used>=600?'':'0')+Math.floor(used/60)+':'+(used%60<10?'0':'')+(used%60);
+  var keys=['F','N','V','M'].sort(function(a,b){return R.domains[b]-R.domains[a];});
+  document.getElementById('strong').textContent=DOM[keys[0]];
+  document.getElementById('weak').textContent=DOM[keys[3]];
+  // 伏せた表示（ぼかし。実数値はレポート側で表示）
+  document.getElementById('iqBlur').textContent=R.iq;
+  document.getElementById('clsBlur').textContent=cls(R.iq);
   (function(){
-    var W=640,H=230,base=H-40,PAD=28;
+    var W=640,H=200,base=H-30,PAD=24;
     function X(v){return PAD+(v-55)/90*(W-PAD*2);}
-    function Y(v){var z=(v-100)/15;return base-Math.exp(-z*z/2)*(base-30);}
-    function seg(a,b,fill){var d='M'+X(a)+','+base;for(var v=a;v<=b;v++)d+='L'+X(v).toFixed(1)+','+Y(v).toFixed(1);d+='L'+X(b)+','+base+'Z';return '<path d="'+d+'" fill="'+fill+'"/>';}
+    function Y(v){var z=(v-100)/15;return base-Math.exp(-z*z/2)*(base-24);}
     var curve='M'+X(55)+','+Y(55);for(var v=56;v<=145;v++)curve+='L'+X(v).toFixed(1)+','+Y(v).toFixed(1);
-    var ticks=[[55,'-3σ'],[70,'-2σ'],[85,'-1σ'],[100,''],[115,'+1σ'],[130,'+2σ'],[145,'+3σ']].map(function(t){var x=X(t[0]);return '<line x1="'+x+'" y1="'+Y(t[0])+'" x2="'+x+'" y2="'+base+'" stroke="#8d99b8" stroke-width="1"/><text x="'+x+'" y="'+(base+16)+'" text-anchor="middle" font-size="12" fill="#4C5A7A" font-family="Inter" font-style="italic">'+t[1]+'</text><text x="'+x+'" y="'+(Y(t[0])-6)+'" text-anchor="middle" font-size="12" fill="#8d99b8" font-family="Inter">'+t[0]+'</text>';}).join('');
     var iq=Math.min(145,Math.max(55,R.iq)),ux=X(iq),uy=Y(iq);
-    document.getElementById('curve').innerHTML='<svg viewBox="0 0 '+W+' '+(H+8)+'" aria-label="IQ分布">'+
-      seg(55,85,'#F4A3A8')+seg(85,130,'#D9DEE8')+seg(130,145,'#B6F26B')+
-      '<path d="'+curve+'" fill="none" stroke="#1E4FD8" stroke-width="3"/><line x1="0" y1="'+base+'" x2="'+W+'" y2="'+base+'" stroke="#1E4FD8" stroke-width="2"/>'+ticks+
-      '<text x="'+X(100)+'" y="'+(base+34)+'" text-anchor="middle" font-size="14" fill="#1E4FD8" font-family="Inter" font-style="italic" font-weight="700">平均</text>'+
-      '<text x="'+X(130)+'" y="'+(base+34)+'" text-anchor="middle" font-size="14" fill="#1E4FD8" font-family="Inter" font-style="italic" font-weight="700">上位2%</text>'+
-      '<line x1="'+ux+'" y1="'+uy+'" x2="'+ux+'" y2="'+base+'" stroke="#E35D6A" stroke-width="3"/><circle cx="'+ux+'" cy="'+uy+'" r="7" fill="#E35D6A" stroke="#fff" stroke-width="3"/>'+
-      '<text x="'+ux+'" y="'+(uy-16)+'" text-anchor="middle" font-size="18" font-weight="900" fill="#E35D6A" font-family="Inter" font-style="italic">'+R.iq+'</text></svg>';
-    document.getElementById('curveText').textContent='あなたのIQは '+R.iq+' と測定されました。これは標準偏差15の尺度で上位 '+topS+'% に相当します。';
+    document.getElementById('curve').innerHTML='<svg viewBox="0 0 '+W+' '+H+'"><path d="'+curve+'L'+X(145)+','+base+'L'+X(55)+','+base+'Z" fill="#D9DEE8"/><path d="'+curve+'" fill="none" stroke="#1E4FD8" stroke-width="3"/><line x1="'+ux+'" y1="'+uy+'" x2="'+ux+'" y2="'+base+'" stroke="#E35D6A" stroke-width="3"/><circle cx="'+ux+'" cy="'+uy+'" r="7" fill="#E35D6A"/></svg>';
   })();
-
-  // 結果
-  document.getElementById('sCorrect').textContent=R.correct;
-  var used=1200-R.timeLeft;document.getElementById('sTime').textContent=Math.floor(used/60)+':'+(used%60<10?'0':'')+(used%60);
-  document.getElementById('sBonus').textContent='+'+R.bonus;
-
-  // プロファイル
-  var keys=['F','N','V','M'];
-  document.getElementById('dl').innerHTML=keys.map(function(k){var v=Math.round((R.domains[k]||0)*100);return '<div class="r"><div>'+DOM[k][0]+'<small>'+DOM[k][1]+'</small></div><div class="bar"><i style="width:0" data-w="'+v+'"></i></div><div class="v">'+v+'%</div></div>';}).join('');
-  setTimeout(function(){document.querySelectorAll('.bar i').forEach(function(i){i.style.width=i.dataset.w+'%';});},200);
-  var sorted=keys.slice().sort(function(a,b){return R.domains[b]-R.domains[a];});
-  document.getElementById('strong').textContent=DOM[sorted[0]][0];
-  document.getElementById('weak').textContent=DOM[sorted[sorted.length-1]][0];
-
-  var txt='AI-KNOW IQテストの結果：IQ '+R.iq+'（上位'+topS+'%・'+cls(R.iq)+'） #AIKNOW #IQテスト';
-  document.getElementById('share').href='https://twitter.com/intent/tweet?text='+encodeURIComponent(txt)+'&url='+encodeURIComponent(location.origin+location.pathname.replace('result.html','index.html'));
-  document.getElementById('buy').onclick=function(e){e.preventDefault();alert('決済導線はAI-KNOW本体に接続予定です。');};
+  // 決済ボタン：エンジニア接続用。data-checkout に実URLを入れる（例：https://ai-know.ai/before-payment/{id}/）
+  ['buy','buy2'].forEach(function(id){var a=document.getElementById(id);a.onclick=function(e){var u=a.getAttribute('data-checkout');if(!u||u==='CHECKOUT_URL'){e.preventDefault();alert('決済ページは未接続です（data-checkout に実URLを設定してください）。');}else a.href=u;};});
 }
 </script>
 </body>

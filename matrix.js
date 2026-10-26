@@ -149,6 +149,31 @@
     return m;
   }
 
+  /* ---------- レベル1：単純なパターン（単一属性の変化） ---------- */
+  var EASY = [
+    /* E1 行＝同じ形、列＝点が1つずつ増える */
+    function () {
+      var shapes = ['sq', 'ci', 'tri0']; var dots = [['dot@C'], ['dot@TL', 'dot@BR'], ['dot@TL', 'dot@C', 'dot@BR']];
+      var m = []; for (var i = 0; i < 3; i++) for (var j = 0; j < 3; j++) m.push([shapes[i]].concat(dots[j])); return m;
+    },
+    /* E2 行方向に90°ずつ回転（要素は1つ） */
+    function () { return progression([['chevN'], ['tri0'], ['arcN']], rot90); },
+    /* E3 形のラテン方陣（各行・各列に一度ずつ） */
+    function () { var s = ['sq', 'ci', 'dia']; var m = []; for (var i = 0; i < 3; i++) for (var j = 0; j < 3; j++) m.push([s[(i + j) % 3]]); return m; },
+    /* E4 行＝同じ形、列＝線が1本ずつ増える */
+    function () {
+      var shapes = ['sq', 'ci', 'hex']; var lines = ['hl', 'hl2', 'hl3'];
+      var m = []; for (var i = 0; i < 3; i++) for (var j = 0; j < 3; j++) m.push([shapes[i], lines[j]]); return m;
+    },
+    /* E5 行の和（1列目＋2列目＝3列目）・要素は少なく */
+    function () { return rowOp([[['hl'], ['vl']], [['d1'], ['d2']], [['sq'], ['dot@C']]], union); },
+    /* E6 列＝同じ形、点が左上→中央→右下へ移動 */
+    function () {
+      var shapes = ['sq', 'ci', 'tri0']; var pos = ['TL', 'C', 'BR'];
+      var m = []; for (var i = 0; i < 3; i++) for (var j = 0; j < 3; j++) m.push([shapes[j], 'dot@' + pos[i]]); return m;
+    }
+  ];
+
   var ITEMS = [
     /* 1 ラテン方陣：外形×内マーク */
     function () { return latin(['sq', 'ci', 'tri0'], ['dot@C', 'plus', 'x']); },
@@ -275,10 +300,19 @@
     }
   ];
 
-  function matrixItem(n) { // n: 1..22
-    var cells = ITEMS[n - 1]();
-    return build(n, cells);
+  /* ---------- 出題順（難易度4段階） ----------
+     L1 単純なパターン（EASY 1〜6）／L2 1規則／L3 2規則・変換／L4 3規則・排他の組合せ */
+  var ORDER = [
+    { lv: 1, f: EASY[0] }, { lv: 1, f: EASY[1] }, { lv: 1, f: EASY[2] }, { lv: 1, f: EASY[3] }, { lv: 1, f: EASY[4] }, { lv: 1, f: EASY[5] },
+    { lv: 2, f: ITEMS[0] }, { lv: 2, f: ITEMS[1] }, { lv: 2, f: ITEMS[6] }, { lv: 2, f: ITEMS[4] }, { lv: 2, f: ITEMS[11] }, { lv: 2, f: ITEMS[14] },
+    { lv: 3, f: ITEMS[2] }, { lv: 3, f: ITEMS[7] }, { lv: 3, f: ITEMS[8] }, { lv: 3, f: ITEMS[10] }, { lv: 3, f: ITEMS[13] }, { lv: 3, f: ITEMS[9] },
+    { lv: 4, f: ITEMS[12] }, { lv: 4, f: ITEMS[15] }, { lv: 4, f: ITEMS[17] }, { lv: 4, f: ITEMS[19] }
+  ];
+  function matrixItem(n) { // n: 1..22（出題順）
+    var it = build(n, ORDER[n - 1].f());
+    it.level = ORDER[n - 1].lv;
+    return it;
   }
 
-  global.MX = { drawCell: drawCell, matrixItem: matrixItem, count: ITEMS.length, same: same };
+  global.MX = { drawCell: drawCell, matrixItem: matrixItem, count: ORDER.length, same: same };
 })(window);

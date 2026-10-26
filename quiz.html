@@ -19,13 +19,15 @@ body{background:#fff;min-height:100vh}
 .prog i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--sky));transition:width .4s}
 
 .stage{width:min(820px,100% - 32px);margin:28px auto 70px}
-.part{font-size:14px;color:var(--sub);text-align:center;font-style:italic;margin-bottom:14px}
-.part b{color:var(--blue);font-style:normal;font-weight:700}
+.part{display:flex;justify-content:center;gap:10px;align-items:center;margin-bottom:14px;font-size:13px;color:var(--sub)}
+.part .chip{background:var(--ice);color:var(--blue);font-weight:700;padding:3px 12px;border-radius:999px;font-size:12px}
+.part .lv{display:inline-flex;gap:3px}
+.part .lv i{width:7px;height:7px;border-radius:50%;background:#d7deee}
+.part .lv i.on{background:var(--blue)}
 .prompt{font-size:21px;font-weight:700;color:var(--ink);line-height:1.6;margin-bottom:22px;text-align:center}
 .prompt.left{text-align:left}
 .prompt em{font-style:italic}
 
-/* matrix */
 .mat{display:grid;grid-template-columns:repeat(3,1fr);width:min(380px,100%);margin:0 auto 10px;border:4px solid #111;background:#111;gap:3px}
 .mat div{background:#fff;aspect-ratio:1;padding:6%}
 .mat svg{width:100%;height:100%}
@@ -36,9 +38,8 @@ body{background:#fff;min-height:100vh}
 .fopts button.sel{border-color:var(--blue);box-shadow:0 0 0 4px rgba(30,79,216,.16)}
 .fopts button b{display:block;font-family:var(--num);font-size:20px;font-weight:800;color:#111;margin-bottom:2px}
 .fopts button svg{width:62%;height:auto;margin:0 auto;display:block}
-@media(max-width:560px){.fopts{grid-template-columns:repeat(3,1fr);gap:8px}.fopts button svg{width:80%}}
+@media(max-width:560px){.fopts{gap:8px}.fopts button svg{width:80%}}
 
-/* text options */
 .topts{display:grid;gap:10px;max-width:720px;margin:0 auto}
 .topts button{text-align:left;border:1px solid #c9d3e6;border-radius:8px;background:#fff;padding:16px 18px;font-size:17px;line-height:1.6;color:var(--ink);transition:.12s;display:flex;gap:12px;align-items:flex-start}
 .topts button b{font-family:var(--num);color:var(--blue);font-weight:800;flex:0 0 18px}
@@ -46,7 +47,6 @@ body{background:#fff;min-height:100vh}
 .topts button.sel{border-color:var(--blue);background:#E6F4EA}
 .fopts.lock button,.topts.lock button{pointer-events:none;opacity:.35}
 
-/* memory */
 .stim{text-align:center;margin:0 auto 20px}
 .stim .digits{font-family:var(--num);font-size:46px;font-weight:800;letter-spacing:.3em;color:var(--ink)}
 .stim .words{font-size:30px;font-weight:700;letter-spacing:.15em;color:var(--ink)}
@@ -59,7 +59,6 @@ body{background:#fff;min-height:100vh}
 .foot{display:flex;justify-content:space-between;align-items:center;margin-top:26px;font-size:13px;color:var(--sub)}
 .foot .skip{color:var(--sub);text-decoration:underline}
 
-/* intro & analyzing */
 .intro{text-align:center;padding:40px 20px}
 .intro h1{font-size:32px;font-weight:900;color:var(--navy);margin:10px 0 12px}
 .intro p{color:var(--sub);max-width:32em;margin:0 auto}
@@ -68,6 +67,16 @@ body{background:#fff;min-height:100vh}
 .parts b{display:block;font-family:var(--num);font-size:24px;color:var(--blue)}
 .parts span{font-size:13px;color:var(--sub);font-weight:700}
 @media(max-width:600px){.parts{grid-template-columns:repeat(2,1fr)}.prompt{font-size:18px}}
+
+/* 開始前の記憶課題 */
+.memo{text-align:center;padding:30px 20px}
+.memo h2{font-size:24px;color:var(--navy);margin-bottom:8px}
+.memo p{color:var(--sub);max-width:30em;margin:0 auto 24px}
+.memo .box{background:var(--ice);border-radius:18px;padding:30px 20px;max-width:520px;margin:0 auto 22px}
+.memo .box .digits{font-family:var(--num);font-size:52px;font-weight:900;letter-spacing:.3em;color:var(--navy)}
+.memo .box .words{font-size:28px;font-weight:700;color:var(--navy);margin-top:14px;letter-spacing:.1em}
+.memo .cnt{font-family:var(--num);color:var(--sub);font-size:14px;margin-top:10px}
+
 .anal{text-align:center;padding:60px 24px}
 .ring{width:110px;height:110px;margin:0 auto 24px;border-radius:50%;border:8px solid var(--ice);border-top-color:var(--blue);animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -90,57 +99,76 @@ body{background:#fff;min-height:100vh}
 <script>
 /* ===================== 問題データ（planning.md §3 が正） ===================== */
 var LIMIT = 1200; // 秒（20分）
-var PARTS = { F: '図形推理', N: '数的推理', V: '言語・論理', M: '記憶' };
-var QUESTIONS = [];
+var DOMAIN = { F: '図形推理', N: '数的推理', V: '言語・論理', M: '記憶', L: '長期記憶' };
+var MEMO = { digits: '4 7 2 9', words: ['カモメ', '鍵', '灯台'] }; // 開始前に提示し、終盤で問う
 
-// Part 1：図形推理 22問（matrix.js が行列・選択肢を生成）
-for (var i = 1; i <= 22; i++) {
-  QUESTIONS.push({ type: 'matrix', domain: 'F', n: i, w: i <= 7 ? 1 : i <= 15 ? 2 : 3 });
-}
-// Part 2：数的推理 6問
-[
-  { s: '2,  6,  12,  20,  30,  ?', o: ['40', '42', '44', '48'], a: 1 },
-  { s: '3,  5,  9,  17,  33,  ?', o: ['49', '57', '65', '66'], a: 2 },
-  { s: '1,  1,  2,  3,  5,  8,  13,  ?', o: ['18', '20', '21', '26'], a: 2 },
-  { s: '5,  8,  12,  17,  23,  ?', o: ['28', '29', '30', '31'], a: 2 },
-  { s: '100,  50,  52,  26,  28,  14,  ?', o: ['7', '12', '16', '30'], a: 2 },
-  { p: 'ある数を3倍して4を引くと、その数に8を足した数と等しくなります。ある数はいくつですか？', o: ['4', '5', '6', '8'], a: 2 }
-].forEach(function (q) { QUESTIONS.push({ type: 'text', domain: 'N', w: 2, prompt: q.p || '次の数列の「?」に入る数は？', series: q.s, options: q.o, answer: q.a }); });
-// Part 3：言語・論理 8問
-[
+// 図形（出題順1〜22。レベルはmatrix.jsのORDERに従う：L1=1点 L2=2点 L3=3点 L4=4点）
+function F(n) { return { type: 'matrix', domain: 'F', n: n }; }
+// 数的推理
+var N = [
+  { s: '2,  4,  6,  8,  10,  ?', o: ['11', '12', '14', '16'], a: 1, w: 1 },
+  { s: '3,  5,  9,  17,  33,  ?', o: ['49', '57', '65', '66'], a: 2, w: 2 },
+  { s: '1,  1,  2,  3,  5,  8,  13,  ?', o: ['18', '20', '21', '26'], a: 2, w: 2 },
+  { s: '2,  6,  12,  20,  30,  ?', o: ['40', '42', '44', '48'], a: 1, w: 2 },
+  { s: '100,  50,  52,  26,  28,  14,  ?', o: ['7', '12', '16', '30'], a: 2, w: 3 },
+  { p: 'ある数を3倍して4を引くと、その数に8を足した数と等しくなります。ある数はいくつですか？', o: ['4', '5', '6', '8'], a: 2, w: 3 }
+].map(function (q) { return { type: 'text', domain: 'N', w: q.w, prompt: q.p || '次の数列の「?」に入る数は？', series: q.s, options: q.o, answer: q.a }; });
+// 言語・論理
+var V = [
   { p: '「医者」と「病院」の関係に最も近いのは、「教師」と何の関係ですか？', o: ['生徒', '教科書', '学校', '授業'], a: 2, w: 1 },
-  { p: '「時計」が「時間」を測るなら、「温度計」が測るのは？', o: ['天気', '温度', '水銀', '湿度'], a: 1, w: 1 },
-  { p: '「杞憂」の意味に最も近いものはどれですか？', o: ['先を見越した備え', '取り越し苦労', '根拠のある不安', '他人への気遣い'], a: 1, w: 2 },
   { p: '次のうち、仲間はずれはどれですか？', o: ['正方形', '長方形', 'ひし形', '三角形'], a: 3, w: 1 },
+  { p: '「杞憂」の意味に最も近いものはどれですか？', o: ['先を見越した備え', '取り越し苦労', '根拠のある不安', '他人への気遣い'], a: 1, w: 2 },
   { p: '「すべてのAはBである。CはAではない。」このとき、確実に言えることはどれですか？', o: ['CはBではない', 'CはBである', 'CがBかどうかは決められない', 'BはAである'], a: 2, w: 2 },
   { p: '花子は太郎より年上です。太郎は次郎より年上です。次郎は花子より年下です。確実に言えることはどれですか？', o: ['次郎が3人の中で最年長', '花子が3人の中で最年長', '太郎が3人の中で最年少', '花子と次郎は同い年'], a: 1, w: 2 },
+  { p: '「時計」が「時間」を測るなら、「温度計」が測るのは？', o: ['天気', '温度', '水銀', '湿度'], a: 1, w: 1 },
   { p: '友人を集まりに誘うと、相手は「<em>予定を確認して、前もって連絡するね</em>」と返事しました。1週間たっても、その話は出ません。<br>この返事に最も近い含意はどれですか？', o: ['本当に忙しく、まだ予定を調整しているので、もう一度聞くべきだ', '集まりにあまり乗り気ではないが、直接断りたくない', '忘れているだけなので、こちらから思い出させる必要がある', '集まりの日程を変えてほしいと暗に求めている'], a: 1, w: 3 },
   { p: '会議で、同僚Aがマネージャーから質問に答えるよう指名されました。Aが話す前に、同僚Bが割り込んでAの代わりに答えました。<br>職場の人間関係の規範から見ると、Bの行動にはどんな意味がありますか？', o: ['BはAを助けており、チームワークの一形態である', 'Bは親切で思いやりがある', 'Bの行動は、Aが自分で答える機会と自律性を奪っている', 'Bはマネージャーに評価されたいだけで、Aには影響がない'], a: 2, w: 3 }
-].forEach(function (q) { QUESTIONS.push({ type: 'text', domain: 'V', w: q.w, prompt: q.p, options: q.o, answer: q.a, left: true }); });
-// Part 4：記憶 4問（刺激を数秒表示→非表示）
-QUESTIONS.push({ type: 'memory', domain: 'M', w: 2, stim: { digits: '7 3 9 1 5' }, show: 4000, prompt: '3番目に表示された数字は？', options: ['3', '9', '1', '5'], answer: 1 });
-QUESTIONS.push({ type: 'memory', domain: 'M', w: 2, stim: { digits: '4 8 2 6 9 3' }, show: 5000, prompt: '表示された数字を逆の順に並べたものは？', options: ['3 9 6 2 8 4', '3 9 6 2 4 8', '4 8 2 6 3 9', '3 6 9 2 8 4'], answer: 0 });
-QUESTIONS.push({ type: 'memory', domain: 'M', w: 2, stim: { words: '机　海　鍵　鳥　雲' }, show: 4000, prompt: '表示されなかった言葉はどれですか？', options: ['鳥', '雲', '月', '鍵'], answer: 2 });
-QUESTIONS.push({ type: 'memory', domain: 'M', w: 3, stim: { grid: [['sq'], ['x'], ['arcN'], ['dot@C'], ['tri0'], ['hl'], ['ci'], ['plus'], ['dia']] }, show: 5000, prompt: '右下にあった図形はどれですか？', foptions: [['ci'], ['dia'], ['hex'], ['sq']], answer: 1 });
+].map(function (q) { return { type: 'text', domain: 'V', w: q.w, prompt: q.p, options: q.o, answer: q.a, left: true }; });
+// 短期記憶（刺激を数秒表示→非表示）
+var M1 = { type: 'memory', domain: 'M', w: 2, stim: { digits: '4 8 2 6 9 3' }, show: 5000, prompt: '表示された数字を逆の順に並べたものは？', options: ['3 9 6 2 8 4', '3 9 6 2 4 8', '4 8 2 6 3 9', '3 6 9 2 8 4'], answer: 0 };
+var M2 = { type: 'memory', domain: 'M', w: 3, stim: { grid: [['sq'], ['x'], ['arcN'], ['dot@C'], ['tri0'], ['hl'], ['ci'], ['plus'], ['dia']] }, show: 5000, prompt: '右下にあった図形はどれですか？', foptions: [['ci'], ['dia'], ['hex'], ['sq']], answer: 1 };
+// 長期記憶（開始前に提示した内容）
+var L1 = { type: 'text', domain: 'L', w: 3, prompt: 'テスト開始前に表示された4桁の数字はどれですか？', options: ['4 7 2 9', '4 7 9 2', '7 4 2 9', '4 2 7 9'], answer: 0 };
+var L2 = { type: 'text', domain: 'L', w: 3, prompt: 'テスト開始前に表示された3つの言葉に<b>含まれていなかった</b>ものはどれですか？', options: ['鍵', 'カモメ', '灯台', '港'], answer: 3, left: true };
+
+// 出題順：図形と文章を交互に。図形はレベル順、文章も易→難
+var QUESTIONS = [
+  F(1), F(2), F(3), N[0], F(4), F(5), V[0], F(6), F(7), N[1],
+  F(8), F(9), V[1], M1, F(10), F(11), N[2], F(12), V[5], L1,
+  F(13), F(14), N[3], V[2], F(15), F(16), V[3], N[4], F(17), F(18),
+  M2, F(19), V[4], N[5], F(20), V[6], F(21), L2, F(22), V[7]
+];
 
 /* ===================== 進行 ===================== */
 var stage = document.getElementById('stage'), timerEl = document.getElementById('timer'), tmEl = document.getElementById('tm'), progEl = document.getElementById('prog');
 var idx = 0, answers = [], timeLeft = LIMIT, tick = null, started = false, cache = {};
 var LETTERS = 'ABCDEF';
 
-function partInfo(i) {
-  var d = QUESTIONS[i].domain, n = 0, total = 0;
-  QUESTIONS.forEach(function (q, k) { if (q.domain === d) { total++; if (k <= i) n++; } });
-  var pn = { F: 1, N: 2, V: 3, M: 4 }[d];
-  return 'パート' + pn + ' - ' + PARTS[d] + ' - ' + n + '/' + total;
+function item(i) { var q = QUESTIONS[i]; if (q.type === 'matrix' && !cache[i]) cache[i] = MX.matrixItem(q.n); return cache[i]; }
+function weight(i) { var q = QUESTIONS[i]; return q.type === 'matrix' ? item(i).level : q.w; }
+function partLabel(i) {
+  var q = QUESTIONS[i], d = q.domain, n = 0, total = 0;
+  QUESTIONS.forEach(function (x, k) { if (x.domain === d) { total++; if (k <= i) n++; } });
+  var lv = weight(i), dots = ''; for (var k = 1; k <= 4; k++) dots += '<i class="' + (k <= lv ? 'on' : '') + '"></i>';
+  return '<span class="chip">' + DOMAIN[d] + ' ' + n + '/' + total + '</span><span>難易度</span><span class="lv">' + dots + '</span>';
 }
+
 function intro() {
   stage.innerHTML = '<div class="intro"><span class="eyebrow">AI-KNOW</span><h1>IQテスト</h1>' +
-    '<p>40問・制限時間20分。図形の規則、数列、言語と論理、記憶の4パートで構成されています。1問ずつ表示され、選択すると次に進みます。わからない問題は飛ばしても構いません。</p>' +
+    '<p>40問・制限時間20分。図形の規則、数列、言語と論理、記憶の問題が交互に出題されます。易しい問題から始まり、少しずつ難しくなります。わからない問題は飛ばしても構いません。</p>' +
     '<div class="parts"><div><b>22</b><span>図形推理</span></div><div><b>6</b><span>数的推理</span></div><div><b>8</b><span>言語・論理</span></div><div><b>4</b><span>記憶</span></div></div>' +
     '<button class="btn btn-primary" id="start">テストを開始する <span class="arr">→</span></button>' +
     '<p style="font-size:12px;margin-top:16px">結果は心理測定上の標準化を行っていない推定値です。静かな環境で、途中で中断せずに受けてください。</p></div>';
-  document.getElementById('start').onclick = start;
+  document.getElementById('start').onclick = memo;
+}
+// 開始前の記憶課題（最低8秒表示）
+function memo() {
+  stage.innerHTML = '<div class="memo"><span class="eyebrow">記憶課題</span><h2>次の内容を覚えてください</h2><p>テストの途中で、この内容について質問します。メモは取らずに覚えてください。</p>' +
+    '<div class="box"><div class="digits">' + MEMO.digits + '</div><div class="words">' + MEMO.words.join('　') + '</div></div>' +
+    '<button class="btn btn-primary" id="go" disabled style="opacity:.5">覚えました（<span id="mc">8</span>）</button><div class="cnt">8秒後にボタンが押せるようになります</div></div>';
+  var c = 8, btn = document.getElementById('go');
+  var iv = setInterval(function () { c--; document.getElementById('mc').textContent = c; if (c <= 0) { clearInterval(iv); btn.disabled = false; btn.style.opacity = 1; btn.innerHTML = 'テストを始める <span class="arr">→</span>'; } }, 1000);
+  btn.onclick = function () { if (!btn.disabled) start(); };
 }
 function start() {
   started = true; timerEl.hidden = false;
@@ -153,12 +181,10 @@ function start() {
 }
 function fmt() { var m = Math.floor(timeLeft / 60), s = timeLeft % 60; tmEl.textContent = m + ':' + (s < 10 ? '0' : '') + s; }
 
-function item(i) { var q = QUESTIONS[i]; if (q.type === 'matrix' && !cache[i]) cache[i] = MX.matrixItem(q.n); return cache[i]; }
-
 function show() {
   var q = QUESTIONS[idx];
   progEl.style.width = (idx / QUESTIONS.length * 100) + '%';
-  var h = '<div class="part">' + partInfo(idx) + '</div>';
+  var h = '<div class="part">' + partLabel(idx) + '</div>';
   if (q.type === 'matrix') {
     var it = item(idx);
     h += '<div class="prompt">?に入る図形を選んでください</div>';
@@ -169,10 +195,9 @@ function show() {
     h += '<div class="prompt' + (q.left ? ' left' : '') + '">' + q.prompt + '</div>';
     if (q.series) h += '<div class="series">' + q.series + '</div>';
     h += '<div class="topts" id="opts">' + q.options.map(function (o, i) { return '<button data-i="' + i + '"><b>' + LETTERS[i] + '</b><span>' + o + '</span></button>'; }).join('') + '</div>';
-  } else { // memory
+  } else {
     h += '<div class="prompt" id="prompt">次の内容を覚えてください</div><div class="stim" id="stim">';
     if (q.stim.digits) h += '<div class="digits">' + q.stim.digits + '</div>';
-    if (q.stim.words) h += '<div class="words">' + q.stim.words + '</div>';
     if (q.stim.grid) h += '<div class="grid">' + q.stim.grid.map(function (c) { return '<div>' + MX.drawCell(c) + '</div>'; }).join('') + '</div>';
     h += '</div><div class="cover" id="cover" hidden><div>表示は終了しました<div class="cnt">?</div></div></div>';
     if (q.foptions) h += '<div class="fopts lock" id="opts" hidden>' + q.foptions.map(function (o, i) { return '<button data-i="' + i + '"><b>' + LETTERS[i] + '</b>' + MX.drawCell(o) + '</button>'; }).join('') + '</div>';
@@ -210,22 +235,21 @@ function finish() {
   clearInterval(tick); idx = QUESTIONS.length; progEl.style.width = '100%';
   var raw = 0, max = 0, dom = { F: [0, 0], N: [0, 0], V: [0, 0], M: [0, 0] }, correct = 0;
   QUESTIONS.forEach(function (q, i) {
-    var ans = q.type === 'matrix' ? item(i).answer : q.answer;
-    max += q.w; dom[q.domain][1] += q.w;
-    if (answers[i] === ans) { raw += q.w; dom[q.domain][0] += q.w; correct++; }
+    var ans = q.type === 'matrix' ? item(i).answer : q.answer, w = weight(i), d = q.domain === 'L' ? 'M' : q.domain;
+    max += w; dom[d][1] += w;
+    if (answers[i] === ans) { raw += w; dom[d][0] += w; correct++; }
   });
   var bonus = Math.min(4, Math.floor(Math.max(0, timeLeft) / 300));
   var score = raw + bonus, total = max + 4;
   var iq = Math.round(65 + score / total * 80);
-  var z = (iq - 100) / 15;
-  var pct = 0.5 * (1 + erf(z / Math.SQRT2)) * 100;
+  var pct = 0.5 * (1 + erf((iq - 100) / 15 / Math.SQRT2)) * 100;
   var d = {}; for (var k in dom) d[k] = dom[k][1] ? dom[k][0] / dom[k][1] : 0;
-  localStorage.setItem('aiknow_iq_result', JSON.stringify({ iq: iq, pct: pct, raw: raw, max: max, bonus: bonus, correct: correct, n: QUESTIONS.length, timeLeft: timeLeft, domains: d, answers: answers, at: new Date().toISOString() }));
+  localStorage.setItem('aiknow_iq_result', JSON.stringify({ iq: iq, pct: pct, raw: raw, max: max, bonus: bonus, correct: correct, n: QUESTIONS.length, timeLeft: timeLeft, used: LIMIT - timeLeft, domains: d, answers: answers, at: new Date().toISOString() }));
   analyzing();
 }
 function analyzing() {
   timerEl.hidden = true;
-  var msgs = ['回答を採点しています', '4つの認知領域を集計しています', '正規分布と照合しています', 'レポートを作成しています'];
+  var msgs = ['回答を採点しています', '4つの認知領域を集計しています', '正規分布と照合しています', '結果を保存しています'];
   stage.innerHTML = '<div class="anal"><div class="ring"></div><h2>解析中</h2><p id="am">' + msgs[0] + '</p></div>';
   var i = 0; var iv = setInterval(function () { i++; if (i < msgs.length) document.getElementById('am').textContent = msgs[i]; else { clearInterval(iv); location.href = 'result.html'; } }, 900);
 }
