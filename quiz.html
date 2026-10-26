@@ -233,18 +233,21 @@ document.addEventListener('keydown', function (e) {
 function erf(x) { var s = x < 0 ? -1 : 1; x = Math.abs(x); var t = 1 / (1 + .3275911 * x); var y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - .284496736) * t + .254829592) * t * Math.exp(-x * x); return s * y; }
 function finish() {
   clearInterval(tick); idx = QUESTIONS.length; progEl.style.width = '100%';
-  var raw = 0, max = 0, dom = { F: [0, 0], N: [0, 0], V: [0, 0], M: [0, 0] }, correct = 0;
+  var raw = 0, max = 0, dom = { F: [0, 0], N: [0, 0], V: [0, 0], M: [0, 0] }, correct = 0, hardCorrect = 0, hardTotal = 0, longCorrect = 0;
   QUESTIONS.forEach(function (q, i) {
     var ans = q.type === 'matrix' ? item(i).answer : q.answer, w = weight(i), d = q.domain === 'L' ? 'M' : q.domain;
+    var ok = answers[i] === ans;
     max += w; dom[d][1] += w;
-    if (answers[i] === ans) { raw += w; dom[d][0] += w; correct++; }
+    if (w >= 3) { hardTotal++; if (ok) hardCorrect++; }
+    if (q.domain === 'L' && ok) longCorrect++;
+    if (ok) { raw += w; dom[d][0] += w; correct++; }
   });
   var bonus = Math.min(4, Math.floor(Math.max(0, timeLeft) / 300));
   var score = raw + bonus, total = max + 4;
   var iq = Math.round(65 + score / total * 80);
   var pct = 0.5 * (1 + erf((iq - 100) / 15 / Math.SQRT2)) * 100;
   var d = {}; for (var k in dom) d[k] = dom[k][1] ? dom[k][0] / dom[k][1] : 0;
-  localStorage.setItem('aiknow_iq_result', JSON.stringify({ iq: iq, pct: pct, raw: raw, max: max, bonus: bonus, correct: correct, n: QUESTIONS.length, timeLeft: timeLeft, used: LIMIT - timeLeft, domains: d, answers: answers, at: new Date().toISOString() }));
+  localStorage.setItem('aiknow_iq_result', JSON.stringify({ iq: iq, pct: pct, raw: raw, max: max, bonus: bonus, correct: correct, hardCorrect: hardCorrect, hardTotal: hardTotal, longCorrect: longCorrect, n: QUESTIONS.length, timeLeft: timeLeft, used: LIMIT - timeLeft, domains: d, answers: answers, at: new Date().toISOString() }));
   analyzing();
 }
 function analyzing() {

@@ -18,6 +18,27 @@ body{background:#fff}
 .summary .sw b{color:#FFD37A}
 .summary .sw .lo{color:#9CCBFF}
 
+.praise{width:min(880px,100% - 32px);margin:22px auto 0;background:linear-gradient(135deg,#FFF8E6,#FFF2CC);border:1px solid #F2D27A;border-radius:18px;padding:24px 26px;box-shadow:var(--shadow-s)}
+.praise .head{font-size:20px;font-weight:900;color:var(--navy);display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.praise .star{color:var(--gold-d);font-size:22px}
+.praise ul{list-style:none;display:grid;gap:8px}
+.praise li{display:flex;gap:10px;align-items:flex-start;font-size:16px;color:var(--ink);line-height:1.6}
+.praise li::before{content:"✓";color:var(--green);font-weight:900;flex:0 0 16px}
+.praise .range{margin-top:14px;padding-top:12px;border-top:1px dashed #E5C86A;font-size:15px;color:var(--navy)}
+.praise .range b{font-family:var(--num);font-size:20px}
+.praise .range span{font-size:12px;color:var(--sub)}
+
+/* 期間限定価格 */
+.offer{width:min(880px,100% - 32px);margin:26px auto 0;background:#FFF4F4;border:2px solid #F2A7AD;border-radius:14px;padding:16px 20px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 24px;text-align:center}
+.offer .lim{font-size:14px;font-weight:700;color:#C42634}
+.offer .cd{font-family:var(--num);font-size:30px;font-weight:900;color:#C42634;letter-spacing:.04em}
+.offer .pr{display:flex;align-items:baseline;gap:10px}
+.offer .pr s{color:var(--sub);font-family:var(--num);font-size:20px}
+.offer .pr b{font-family:var(--num);font-size:40px;color:var(--navy)}
+.offer .pr .off{background:#C42634;color:#fff;font-size:13px;font-weight:800;padding:3px 10px;border-radius:999px}
+.offer.expired{background:var(--ice-2);border-color:var(--line)}
+.offer.expired .lim,.offer.expired .cd{color:var(--sub)}
+
 .teaser{width:min(880px,100% - 32px);margin:22px auto 0;display:grid;grid-template-columns:1fr 1.3fr;gap:18px;align-items:stretch}
 .teaser .card{padding:22px;position:relative;overflow:hidden}
 .teaser h3{font-size:13px;letter-spacing:.14em;color:var(--blue);font-weight:800;margin-bottom:10px}
@@ -78,6 +99,12 @@ body{background:#fff}
   <div class="sw"><b id="strong"></b> が高く、<span class="lo" id="weak"></span> が低い可能性が高いです。</div>
 </div>
 
+<div class="praise">
+  <div class="head"><span class="star">★</span> AIの事前判定：<b id="verdict">高IQの可能性があります</b></div>
+  <ul id="points"></ul>
+  <p class="range">推定スコア帯：<b id="band"></b>　<span>正確な数値はレポートで確認できます</span></p>
+</div>
+
 <div class="teaser">
   <div class="card iqbox"><h3>あなたの総合IQ</h3><div class="n" id="iqBlur">118</div><div class="lbl">分類：<span id="clsBlur" style="filter:blur(5px)">優秀</span>　上位 <span style="filter:blur(5px)">12</span>%</div><div class="lockmark"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>レポートで公開</span></div></div>
   <div class="card curve"><h3>正規分布上のあなたの位置</h3><div id="curve"></div><div class="lockmark"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>レポートで公開</span></div></div>
@@ -90,14 +117,19 @@ body{background:#fff}
   <div><b>04.</b><span>IQを伸ばすための助言<small>弱い領域に合わせたトレーニング方法</small></span></div>
 </div>
 
+<div class="offer" id="offer">
+  <div><div class="lim">受験直後限定価格　残り時間</div><div class="cd" id="cd">10:00</div></div>
+  <div class="pr"><s>通常 $10.9</s><b id="priceNow">$1.9</b><span class="off" id="offTag">82%OFF</span></div>
+</div>
+
 <div class="cta">
   <a class="btn btn-red" id="buy" href="#" data-checkout="CHECKOUT_URL">結果を見る <span class="arr">→</span></a>
-  <p class="note">結果は保存済みです。決済後すぐにレポートが表示されます。</p>
+  <p class="note" id="ctaNote">結果は保存済みです。決済後すぐにレポートが表示されます。限定価格は残り時間内の決済に適用されます。</p>
 </div>
 
 <section class="price">
-  <div class="p"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg><b>¥980</b>で全てを取得</div>
-  <div class="fine">※その他手数料等は一切ございません。買い切り・自動更新なし。</div>
+  <div class="p"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg><span id="priceLbl"><s style="font-size:26px;opacity:.7">$10.9</s>　<b>$1.9</b>で全てを取得</span></div>
+  <div class="fine" id="priceFine">※受験直後10分間の限定価格。その他手数料等は一切ございません。買い切り・自動更新なし。</div>
   <div class="sr">· SAMPLE REPORT</div>
   <h2>サンプルレポート</h2>
   <div class="pages">
@@ -135,6 +167,44 @@ else{
     var iq=Math.min(145,Math.max(55,R.iq)),ux=X(iq),uy=Y(iq);
     document.getElementById('curve').innerHTML='<svg viewBox="0 0 '+W+' '+H+'"><path d="'+curve+'L'+X(145)+','+base+'L'+X(55)+','+base+'Z" fill="#D9DEE8"/><path d="'+curve+'" fill="none" stroke="#1E4FD8" stroke-width="3"/><line x1="'+ux+'" y1="'+uy+'" x2="'+ux+'" y2="'+base+'" stroke="#E35D6A" stroke-width="3"/><circle cx="'+ux+'" cy="'+uy+'" r="7" fill="#E35D6A"/></svg>';
   })();
+  // 期待感の演出（高IQの可能性を示す根拠を回答データから拾う）
+  (function(){
+    var pts=[];
+    var minutes=Math.round(used/60);
+    if(R.hardTotal&&R.hardCorrect>0)pts.push('難易度の高い問題（レベル3〜4）に <b>'+R.hardCorrect+'問</b> 正答。高IQ層に多く見られる回答パターンです');
+    if(used<=900)pts.push('回答時間 '+minutes+'分 は想定時間（15分）より速く、処理速度の高さがうかがえます');
+    else pts.push('時間をかけて慎重に回答しており、正確さを優先する高IQ層の特徴と一致します');
+    pts.push('<b>'+DOM[keys[0]]+'</b> の正答率が4領域の中で最も高く、この領域は専門職・研究職に多い強みです');
+    if(R.longCorrect>=2)pts.push('開始前に提示した情報を最後まで保持できており、ワーキングメモリの容量が大きい可能性があります');
+    else if(R.correct>=20)pts.push('40問中 <b>'+R.correct+'問</b> に正答。平均的な受験者を上回る水準です');
+    document.getElementById('points').innerHTML=pts.slice(0,4).map(function(p){return '<li><span>'+p+'</span></li>';}).join('');
+    var lo=Math.max(70,Math.floor(R.iq/10)*10-5),hi=lo+15;
+    document.getElementById('band').textContent=lo+'〜'+hi;
+    var v=R.iq>=120?'上位層のIQである可能性が高いです':R.iq>=105?'平均を上回るIQの可能性があります':'特定の領域で突出した強みが見られます';
+    document.getElementById('verdict').textContent=v;
+  })();
+
+  // 受験直後10分間の限定価格（期限は結果保存時刻から10分。再読み込みしても継続）
+  (function(){
+    var KEY='aiknow_iq_offer_until';var until=parseInt(localStorage.getItem(KEY)||'0',10);
+    if(!until){until=Date.now()+10*60*1000;localStorage.setItem(KEY,String(until));}
+    var cd=document.getElementById('cd'),offer=document.getElementById('offer');
+    function tick(){
+      var left=Math.max(0,Math.floor((until-Date.now())/1000));
+      cd.textContent=Math.floor(left/60)+':'+(left%60<10?'0':'')+(left%60);
+      if(left<=0){
+        offer.classList.add('expired');
+        offer.querySelector('.lim').textContent='限定価格は終了しました';
+        offer.querySelector('.pr').innerHTML='<b>$10.9</b>';
+        document.getElementById('priceLbl').innerHTML='<b>$10.9</b>で全てを取得';
+        document.getElementById('priceFine').textContent='※その他手数料等は一切ございません。買い切り・自動更新なし。';
+        document.getElementById('ctaNote').textContent='結果は保存済みです。決済後すぐにレポートが表示されます。';
+        clearInterval(iv);
+      }
+    }
+    tick();var iv=setInterval(tick,1000);
+  })();
+
   // 決済ボタン：エンジニア接続用。data-checkout に実URLを入れる（例：https://ai-know.ai/before-payment/{id}/）
   ['buy','buy2'].forEach(function(id){var a=document.getElementById(id);a.onclick=function(e){var u=a.getAttribute('data-checkout');if(!u||u==='CHECKOUT_URL'){e.preventDefault();alert('決済ページは未接続です（data-checkout に実URLを設定してください）。');}else a.href=u;};});
 }
