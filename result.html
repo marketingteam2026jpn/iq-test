@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>診断結果｜脳タイプIQテスト | AI-KNOW</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.top{color:#fff;background:radial-gradient(900px 500px at 20% 0%,rgba(79,163,255,.45),transparent 60%),radial-gradient(700px 500px at 100% 100%,rgba(30,79,216,.6),transparent 60%),linear-gradient(160deg,#0B1F4B 0%,#102A6B 55%,#1E4FD8 140%);padding:56px 0 110px;text-align:center}
+.top .lbl{font-size:13px;letter-spacing:.16em;font-weight:700;color:var(--sky-l)}
+.top .iq{font-family:var(--num);font-size:clamp(84px,16vw,150px);font-weight:900;line-height:1;margin:6px 0 2px;background:linear-gradient(180deg,#fff,#BFDBFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.top .iq small{font-size:.22em;color:var(--sky-l);-webkit-text-fill-color:var(--sky-l);margin-left:6px}
+.top .pct{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:10px 20px;border-radius:999px;font-weight:700;margin-top:10px}
+.top .pct b{font-family:var(--num);color:var(--gold);font-size:22px}
+
+.panel{width:min(880px,100% - 32px);margin:-70px auto 0;display:grid;gap:22px}
+.card{padding:30px 32px}
+@media(max-width:600px){.card{padding:24px 18px}}
+.card h2{font-size:14px;letter-spacing:.14em;color:var(--blue);font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card h2::before{content:"";width:18px;height:2px;background:var(--blue)}
+
+/* curve */
+.curve{position:relative}
+.curve svg{width:100%;height:auto}
+.curve .cap{display:flex;justify-content:space-between;font-family:var(--num);font-size:12px;color:var(--sub);margin-top:4px}
+
+/* type */
+.type{display:grid;grid-template-columns:96px 1fr;gap:22px;align-items:center}
+.type .badge{width:96px;height:96px;border-radius:24px;background:linear-gradient(135deg,var(--navy),var(--blue));display:grid;place-items:center;box-shadow:var(--shadow-s)}
+.type .badge svg{width:56px;height:56px}
+.type .em{font-size:12px;font-weight:800;color:var(--blue);letter-spacing:.12em}
+.type h3{font-size:26px;font-weight:900;color:var(--navy);margin:2px 0 8px}
+.type p{color:var(--sub);font-size:15.5px}
+@media(max-width:600px){.type{grid-template-columns:1fr}.type .badge{width:72px;height:72px}}
+
+/* domains */
+.dl{display:grid;gap:14px}
+.dl .r{display:grid;grid-template-columns:150px 1fr 56px;gap:14px;align-items:center;font-size:15px;font-weight:700;color:var(--navy)}
+.dl .r small{display:block;font-weight:500;color:var(--sub);font-size:12px}
+.dl .v{font-family:var(--num);text-align:right;color:var(--blue)}
+@media(max-width:600px){.dl .r{grid-template-columns:110px 1fr 46px;font-size:14px}}
+
+/* locked report */
+.lock{position:relative;overflow:hidden}
+.lock .blur{filter:blur(6px);user-select:none;pointer-events:none;opacity:.7}
+.lock .blur h3{font-size:18px;margin:14px 0 6px;color:var(--navy)}
+.lock .blur p{color:var(--sub);font-size:15px}
+.lock .jobs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.lock .jobs span{background:var(--ice);padding:6px 14px;border-radius:999px;font-weight:700;font-size:14px;color:var(--navy)}
+.lock .ov{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.95) 55%)}
+.lock .ov .box{text-align:center;max-width:460px;padding:20px}
+.lock .ov .box .ic{width:52px;height:52px;border-radius:50%;background:var(--navy);display:grid;place-items:center;margin:0 auto 12px}
+.lock .ov h3{font-size:22px;font-weight:900;color:var(--navy);margin-bottom:8px}
+.lock .ov p{color:var(--sub);font-size:14.5px;margin-bottom:16px}
+.lock .ov .price{font-family:var(--num);font-size:30px;font-weight:900;color:var(--navy);margin-bottom:14px}
+.lock .ov .price small{font-family:var(--font);font-size:13px;color:var(--sub);font-weight:500;margin-left:6px}
+.lock .ov .fine{font-size:12px;color:var(--sub);margin-top:12px;line-height:1.6}
+.inc{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
+.inc div{display:flex;gap:8px;align-items:flex-start;font-size:14px;color:var(--navy);font-weight:600}
+.inc div::before{content:"✓";color:var(--green);font-weight:900}
+@media(max-width:600px){.inc{grid-template-columns:1fr}}
+
+.actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:34px 16px 60px}
+.share{display:inline-flex;align-items:center;gap:8px;background:#000;color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;font-size:14px}
+.disc{width:min(880px,100% - 32px);margin:0 auto 40px;font-size:12px;color:var(--sub);line-height:1.7}
+</style>
+</head>
+<body>
+
+<header class="hd"><div class="wrap">
+  <a class="brand" href="index.html"><span class="mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 3a4 4 0 0 1 4 4v1a4 4 0 0 1 2 7v1a4 4 0 0 1-6 3.5A4 4 0 0 1 6 16v-1a4 4 0 0 1 2-7V7a4 4 0 0 1 4-4z"/><path d="M12 3v18"/></svg></span>AI-KNOW<small>脳タイプIQテスト</small></a>
+  <a class="cta-s" href="#report">詳細レポート</a>
+</div></header>
+
+<section class="top">
+  <div class="wrap">
+    <div class="lbl">YOUR ESTIMATED IQ</div>
+    <div class="iq"><span id="iq" class="num">0</span><small>IQ</small></div>
+    <div class="pct">全体の上位 <b id="pct">—</b>%</div>
+  </div>
+</section>
+
+<div class="panel">
+  <div class="card curve">
+    <h2>分布上のあなたの位置</h2>
+    <div id="curve"></div>
+    <div class="cap"><span>55</span><span>70</span><span>85</span><span>100</span><span>115</span><span>130</span><span>145</span></div>
+  </div>
+
+  <div class="card type">
+    <div class="badge" id="badge"></div>
+    <div><span class="em">YOUR BRAIN TYPE</span><h3 id="tname"></h3><p id="tdesc"></p></div>
+  </div>
+
+  <div class="card">
+    <h2>5つの思考領域</h2>
+    <div class="dl" id="dl"></div>
+  </div>
+
+  <div class="card lock" id="report">
+    <div class="blur">
+      <h2>詳細レポート</h2>
+      <h3>領域別の詳しい解説</h3><p>あなたの最も強い領域は行列推理です。縦と横の規則を同時に扱えるため、複数の条件が絡む判断で力を発揮します。一方で数量の規則を見抜く速度は平均的で、数字を扱う場面では一段ずつ確認する癖をつけると安定します。</p>
+      <h3>向いている職業</h3><div class="jobs"><span>事業企画</span><span>プロダクトマネージャー</span><span>データエンジニア</span><span>戦略コンサルタント</span><span>UXリサーチャー</span><span>アナリスト</span><span>建築設計</span><span>研究開発</span></div>
+      <h3>伸ばし方</h3><p>ワーキングメモリは訓練で伸びやすい領域です。1日5分のn-back課題を2週間続けると、保持できる情報量が目に見えて変わります。</p>
+      <h3>同年代・同職種との比較</h3><p>同年代の平均と比べて系列推理が上位12%、空間処理が上位34%に位置します。</p>
+    </div>
+    <div class="ov"><div class="box">
+      <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+      <h3>詳細レポートを開く</h3>
+      <p>領域別の解説・向いている職業8種・伸ばし方・同年代との比較をまとめた、あなた専用のレポートです。</p>
+      <div class="price">¥980<small>買い切り・自動更新なし</small></div>
+      <a class="btn btn-gold" id="buy" href="#checkout">レポートを読む →</a>
+      <div class="inc"><div>5領域の詳細解説</div><div>向いている職業8種</div><div>領域別の伸ばし方</div><div>同年代・同職種との比較</div></div>
+      <p class="fine">一度の決済で以後は無料で閲覧できます。サブスクリプションへの自動登録はありません。</p>
+    </div></div>
+  </div>
+</div>
+
+<div class="actions">
+  <a class="share" id="share" href="#" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M18.2 2h3.3l-7.3 8.3L22.8 22h-6.7l-5.2-6.8L4.8 22H1.5l7.8-8.9L1.2 2h6.8l4.7 6.2L18.2 2zm-1.2 18h1.8L7.1 3.9H5.1L17 20z"/></svg>結果をシェア</a>
+  <a class="btn btn-ghost" href="quiz.html">もう一度受ける</a>
+  <a class="btn btn-ghost" href="index.html">トップへ</a>
+</div>
+<p class="disc">本テストの推定IQは、図形推理20問の正答率と解答時間から統計的に推定した参考値であり、WAISなどの標準化された知能検査とは異なります。医療・教育・採用等の判断には使用しないでください。</p>
+
+<footer class="ft"><div class="wrap"><div>© AI-KNOW</div><nav><a href="#">利用規約</a><a href="#">プライバシーポリシー</a><a href="#">特定商取引法に基づく表記</a></nav></div></footer>
+
+<script>
+var TYPES={
+  pattern:{name:'パターンハンター型',desc:'規則の発見が速く、少ない情報から全体像を組み立てるタイプ。人の話の途中で結論が見えてしまうのはこの力の副作用です。企画・エンジニア・コンサルなど「構造を見つける仕事」で強みが出ます。',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5M8 11h6M11 8v6"/></svg>'},
+  spatial:{name:'空間デザイナー型',desc:'頭の中で図形を回転・反転できるタイプ。地図を回さずに読める、配置を見た瞬間に理解できるのはこの力です。設計・デザイン・外科・スポーツなど身体感覚と結びつく仕事に向いています。',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>'},
+  logic:{name:'ロジックビルダー型',desc:'数量や割合の規則に強く、筋道を一段ずつ積み上げるタイプ。感覚ではなく根拠で判断するので、財務・データ分析・研究など「数字で説明する仕事」で評価されやすい脳です。',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M4 18V9M9 18V5M14 18v-7M19 18V3M3 21h18"/></svg>'},
+  memory:{name:'記憶プロセッサ型',desc:'数秒見た情報を保持して使えるタイプ。会議で「さっきの話」を正確に扱え、細部の抜け漏れに気づきます。医療・法務・通訳など、正確さが価値になる仕事に向いています。',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a4 4 0 0 0-4 4v1a3 3 0 0 0-1 5.5V16a3 3 0 0 0 3 3h2M15 4a4 4 0 0 1 4 4v1a3 3 0 0 1 1 5.5V16a3 3 0 0 1-3 3h-2M12 4v15"/></svg>'},
+  sprinter:{name:'瞬発思考型',desc:'速く、かつ正確なタイプ。時間を大きく残して高い正答率を出しました。判断の速さが価値になる営業・トレーダー・救急などで輝きます。単純作業で集中が切れやすいのは、処理が速すぎて退屈するからです。',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>'},
+  balancer:{name:'バランサー型',desc:'5つの領域がほぼ均等なタイプ。突出した得意領域はない代わりに苦手もなく、どんな仕事も平均以上にこなせます。マネジメント・起業・教育など幅広い能力を求められる役割に向いています。',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v18M3 8l9-3 9 3M5 8l-2 6a3 3 0 0 0 6 0L7 8M17 8l-2 6a3 3 0 0 0 6 0l-2-6"/></svg>'}
+};
+var DOM={A:['系列推理','変化の規則を先読みする力'],B:['行列推理','2方向の規則を同時に扱う力'],C:['空間・回転','頭の中で図形を回す力'],D:['数量・規則','個数や割合の法則を見抜く力'],E:['ワーキングメモリ','数秒見た情報を保持する力']};
+
+var raw=localStorage.getItem('aiknow_iq_result');
+if(!raw){location.replace('index.html');}
+else{
+  var R=JSON.parse(raw);
+  // カウントアップ
+  var el=document.getElementById('iq'),t0=null,dur=1400;
+  function step(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/dur);p=1-Math.pow(1-p,3);el.textContent=Math.round(R.iq*p);if(p<1)requestAnimationFrame(step);}
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)el.textContent=R.iq;else requestAnimationFrame(step);
+  document.getElementById('pct').textContent=Math.max(1,100-R.pct);
+
+  // 分布カーブ
+  (function(){
+    var W=600,H=160,pts=[];
+    for(var x=55;x<=145;x+=1){var z=(x-100)/15;var y=Math.exp(-z*z/2);pts.push([(x-55)/90*W,H-10-y*(H-30)]);}
+    var d='M'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join('L');
+    var ux=(Math.min(145,Math.max(55,R.iq))-55)/90*W;
+    var uz=(R.iq-100)/15,uy=H-10-Math.exp(-uz*uz/2)*(H-30);
+    document.getElementById('curve').innerHTML='<svg viewBox="0 0 '+W+' '+H+'" aria-label="IQ分布">'+
+      '<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#4FA3FF" stop-opacity=".45"/><stop offset="1" stop-color="#1E4FD8" stop-opacity=".05"/></linearGradient></defs>'+
+      '<path d="'+d+'L'+W+','+(H-10)+'L0,'+(H-10)+'Z" fill="url(#g)"/><path d="'+d+'" fill="none" stroke="#1E4FD8" stroke-width="3"/>'+
+      '<line x1="'+ux+'" y1="'+uy+'" x2="'+ux+'" y2="'+(H-10)+'" stroke="#F2B544" stroke-width="3" stroke-dasharray="4 4"/>'+
+      '<circle cx="'+ux+'" cy="'+uy+'" r="9" fill="#F2B544" stroke="#fff" stroke-width="3"/>'+
+      '<text x="'+ux+'" y="'+(uy-18)+'" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="16" fill="#0B1F4B">あなた '+R.iq+'</text></svg>';
+  })();
+
+  // 脳タイプ
+  var T=TYPES[R.type]||TYPES.balancer;
+  document.getElementById('badge').innerHTML=T.icon;
+  document.getElementById('tname').textContent=T.name;
+  document.getElementById('tdesc').textContent=T.desc;
+
+  // 領域
+  document.getElementById('dl').innerHTML=['A','B','C','D','E'].map(function(k){
+    var v=Math.round((R.domains[k]||0)*100);
+    return '<div class="r"><div>'+DOM[k][0]+'<small>'+DOM[k][1]+'</small></div><div class="bar"><i style="width:0" data-w="'+v+'"></i></div><div class="v">'+v+'%</div></div>';
+  }).join('');
+  setTimeout(function(){document.querySelectorAll('.bar i').forEach(function(i){i.style.width=i.dataset.w+'%';});},200);
+
+  // シェア
+  var txt='脳タイプIQテストの結果：推定IQ '+R.iq+'（上位'+Math.max(1,100-R.pct)+'%）／'+T.name+' #AIKNOW #脳タイプIQテスト';
+  document.getElementById('share').href='https://twitter.com/intent/tweet?text='+encodeURIComponent(txt)+'&url='+encodeURIComponent(location.origin+location.pathname.replace('result.html','index.html'));
+  document.getElementById('buy').onclick=function(e){e.preventDefault();alert('決済導線はAI-KNOW本体に接続予定です。');};
+}
+</script>
+</body>
+</html>

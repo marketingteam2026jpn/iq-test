@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>脳タイプIQテスト｜20問・約5分で推定IQと脳タイプがわかる | AI-KNOW</title>
+<meta name="description" content="言葉を使わない図形推理20問で、あなたの推定IQ・上位何%か・6つの脳タイプを判定。集中できないのは欠点ではなく、脳の使い方の違いかもしれません。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* hero */
+.hero{position:relative;overflow:hidden;color:#fff;background:radial-gradient(900px 500px at 15% 10%,rgba(79,163,255,.45),transparent 60%),radial-gradient(700px 500px at 95% 90%,rgba(30,79,216,.6),transparent 60%),linear-gradient(160deg,#0B1F4B 0%,#102A6B 55%,#1E4FD8 140%)}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(circle at 60% 40%,#000 20%,transparent 75%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding:84px 0 92px}
+.hero .pill{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:7px 14px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.06em}
+.hero .pill b{color:var(--gold)}
+.hero h1{font-size:clamp(32px,5vw,56px);line-height:1.22;font-weight:900;margin:22px 0 18px;letter-spacing:.01em}
+.hero h1 .q{color:var(--sky-l)}
+.hero h1 .or{display:inline-block;font-size:.5em;font-weight:700;color:rgba(255,255,255,.7);margin:0 .5em;vertical-align:middle}
+.hero h1 .hi{background:linear-gradient(90deg,#FFD37A,#F2B544);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.sub{font-size:18px;color:rgba(255,255,255,.84);max-width:30em;margin-bottom:30px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;font-size:14px;color:rgba(255,255,255,.75)}
+.hero .meta span{display:flex;align-items:center;gap:6px}
+.hero .meta i{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+/* sample puzzle card */
+.sample{background:rgba(255,255,255,.96);border-radius:24px;padding:22px;color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.35);transform:rotate(-1.5deg);position:relative}
+.sample .lbl{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.12em;margin-bottom:10px}
+.sample .mat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.sample .mat .fig{background:var(--ice);border-radius:12px}
+.sample .mat .fig.q{outline:2px dashed var(--sky);outline-offset:-2px;background:#fff}
+.sample .opts{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.sample .opts .fig{background:var(--ice-2);border:1px solid var(--line);border-radius:10px}
+.sample .opts .fig.on{border:2px solid var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(30,79,216,.15)}
+.sample .tag{position:absolute;top:-14px;right:18px;background:var(--gold);color:var(--navy);font-weight:900;font-size:12px;padding:6px 12px;border-radius:999px;letter-spacing:.08em;transform:rotate(3deg)}
+.hero .wrap>*{min-width:0}
+.sample .mat .fig,.sample .opts .fig{min-width:0}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;padding:56px 0 64px}.sample{transform:none;max-width:460px;width:100%}}
+
+/* spectrum */
+.spec{display:grid;gap:26px;max-width:760px;margin:36px auto 0}
+.spec .row{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 24px;box-shadow:var(--shadow-s)}
+.spec .ends{display:flex;justify-content:space-between;font-weight:700;font-size:14px;color:var(--sub);margin-bottom:10px}
+.spec .track{position:relative;height:14px;border-radius:999px;background:linear-gradient(90deg,#E35D6A 0%,#F2B544 50%,#1E4FD8 100%);opacity:.9}
+.spec .track i{position:absolute;top:50%;width:26px;height:26px;border-radius:50%;background:#fff;border:4px solid var(--navy);transform:translate(-50%,-50%);box-shadow:var(--shadow-s)}
+.spec .track i::after{content:"あなたは？";position:absolute;top:-34px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:12px;font-weight:700;color:var(--navy);background:#fff;border:1px solid var(--line);padding:2px 8px;border-radius:6px}
+
+/* checklist */
+.checks{display:grid;gap:14px;max-width:640px;margin:30px auto 0}
+.checks label{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);padding:16px 20px;border-radius:14px;font-weight:500;cursor:pointer;transition:.15s}
+.checks label:has(input:checked){border-color:var(--blue);background:var(--ice)}
+.checks input{width:20px;height:20px;accent-color:var(--blue)}
+.reframe{max-width:640px;margin:26px auto 0;background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-radius:18px;padding:26px 28px;font-size:17px;line-height:1.9;box-shadow:var(--shadow)}
+.reframe b{color:#FFD37A}
+
+/* domains */
+.dom .card{padding:26px 24px}
+.dom .ic{width:54px;height:54px;border-radius:14px;background:var(--ice);display:grid;place-items:center;margin-bottom:14px}
+.dom .ic svg{width:40px;height:40px}
+.dom h3{font-size:18px;margin-bottom:6px}
+.dom p{color:var(--sub);font-size:15px}
+.dom .n{font-family:var(--num);color:var(--sky);font-weight:800;font-size:13px;letter-spacing:.1em}
+
+/* steps */
+.steps{counter-reset:s}
+.steps .st{display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.steps .st::before{counter-increment:s;content:counter(s,decimal-leading-zero);font-family:var(--num);font-size:34px;font-weight:900;color:var(--sky-l);line-height:1}
+.steps h3{font-size:19px;margin-bottom:4px}.steps p{color:rgba(255,255,255,.75);font-size:15px}
+
+/* types */
+.types .card{padding:22px;position:relative;overflow:hidden}
+.types .card::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(79,163,255,.25),transparent 70%)}
+.types .em{font-size:12px;font-weight:800;color:var(--blue);letter-spacing:.1em}
+.types h3{font-size:19px;margin:4px 0 8px}
+.types p{color:var(--sub);font-size:14.5px}
+.types .jobs{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+.types .jobs span{font-size:12px;background:var(--ice);color:var(--navy);padding:3px 10px;border-radius:999px;font-weight:700}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.stats div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:22px;text-align:center}
+.stats b{display:block;font-family:var(--num);font-size:40px;font-weight:900;color:#fff;line-height:1.1}
+.stats b small{font-size:16px;margin-left:3px}
+.stats span{font-size:13px;color:rgba(255,255,255,.7)}
+@media(max-width:700px){.stats{grid-template-columns:1fr}}
+
+/* faq */
+.faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:0 22px;margin-bottom:12px}
+.faq summary{list-style:none;cursor:pointer;padding:18px 0;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary::after{content:"+";font-family:var(--num);font-size:22px;color:var(--blue);font-weight:800}
+.faq details[open] summary::after{content:"−"}
+.faq details p{padding:0 0 18px;color:var(--sub);font-size:15px}
+
+/* final cta */
+.final{text-align:center}
+.final h2{color:#fff}
+.final .note{margin-top:16px;font-size:13px;color:rgba(255,255,255,.65)}
+
+/* sticky mobile cta */
+.mcta{display:none;position:fixed;left:0;right:0;bottom:0;padding:12px 16px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);z-index:60}
+.mcta .btn{width:100%;padding:16px;font-size:17px}
+@media(max-width:700px){.mcta{display:block}body{padding-bottom:84px}}
+</style>
+</head>
+<body>
+
+<header class="hd">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 3a4 4 0 0 1 4 4v1a4 4 0 0 1 2 7v1a4 4 0 0 1-6 3.5A4 4 0 0 1 6 16v-1a4 4 0 0 1 2-7V7a4 4 0 0 1 4-4z"/><path d="M12 3v18"/></svg></span>AI-KNOW<small>脳タイプIQテスト</small></a>
+    <a class="cta-s" href="quiz.html">診断してみる</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="pill">言葉を使わない図形テスト <b>20問・約5分</b></span>
+      <h1><span class="q">集中できない？</span><span class="or">それとも</span><br><span class="hi">考えすぎる脳？</span></h1>
+      <p class="sub">落ち着きがない・話の途中で結論が見える・地図を回さずに読める。それは欠点ではなく、脳の使い方の違いかもしれません。20問の図形テストで、あなたの推定IQと脳タイプを判定します。</p>
+      <a class="btn btn-primary" href="quiz.html">診断してみる <span class="arr">→</span></a>
+      <div class="meta"><span><i></i>無料で結果表示</span><span><i></i>登録不要</span><span><i></i>5つの思考領域を測定</span></div>
+    </div>
+    <div class="sample" aria-hidden="true">
+      <span class="tag">SAMPLE</span>
+      <div class="lbl">Q. ？に入る図形は</div>
+      <div class="mat" id="sampleMat"></div>
+      <div class="opts" id="sampleOpts"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div style="text-align:center"><span class="eyebrow">Where are you</span>
+    <h2 class="t">あなたの脳は、どこに位置している？</h2>
+    <p class="lead" style="margin-inline:auto">同じ「集中できない」でも、原因は正反対のことがあります。情報が入りすぎて散漫になる脳と、先を読みすぎて今に留まれない脳。位置によって、向いている働き方はまったく違います。</p></div>
+    <div class="spec">
+      <div class="row"><div class="ends"><span>散漫</span><span>集中</span></div><div class="track"><i style="left:58%"></i></div></div>
+      <div class="row"><div class="ends"><span>直感</span><span>論理</span></div><div class="track"><i style="left:36%"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div style="text-align:center"><span class="eyebrow">Check</span>
+    <h2 class="t">当てはまるものはありますか？</h2></div>
+    <div class="checks">
+      <label><input type="checkbox">人の話の途中で、結論が見えてしまう</label>
+      <label><input type="checkbox">地図を回さなくても、方向がわかる</label>
+      <label><input type="checkbox">単純作業が続くと、急に集中が切れる</label>
+      <label><input type="checkbox">説明より先に、パターンや規則に気づく</label>
+      <label><input type="checkbox">一度見た配置や数字を、なぜか覚えている</label>
+    </div>
+    <div class="reframe">2つ以上当てはまるなら、それは「落ち着きがない」のではなく、<b>処理が速すぎて周囲とテンポが合っていない</b>だけかもしれません。思い込みで決めつける前に、図形テストで確かめてみてください。</div>
+    <div style="text-align:center;margin-top:30px"><a class="btn btn-primary" href="quiz.html">診断してみる <span class="arr">→</span></a></div>
+  </div>
+</section>
+
+<section class="sec dom">
+  <div class="wrap">
+    <span class="eyebrow">5 Domains</span>
+    <h2 class="t">測定する5つの思考領域</h2>
+    <p class="lead">知能研究で使われるCHC理論の流動性推理・視覚空間処理・ワーキングメモリをもとに、言葉を使わない図形問題だけで構成しています。語彙力や学歴に左右されません。</p>
+    <div class="grid g3" style="margin-top:36px">
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1E4FD8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2.5"/><rect x="10" y="9.5" width="5" height="5"/><path d="M19.5 9.5l2.5 5h-5z"/></svg></div><span class="n">DOMAIN 01</span><h3>系列推理</h3><p>並んだ図形の変化の規則を見抜き、次に来るものを予測する力。先読みの速さに直結します。</p></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1E4FD8" stroke-width="1.8"><rect x="3" y="3" width="5" height="5"/><rect x="9.5" y="3" width="5" height="5"/><rect x="16" y="3" width="5" height="5"/><rect x="3" y="9.5" width="5" height="5"/><rect x="9.5" y="9.5" width="5" height="5"/><rect x="16" y="9.5" width="5" height="5"/><rect x="3" y="16" width="5" height="5"/><rect x="9.5" y="16" width="5" height="5"/><path d="M18.5 17v3M17 18.5h3"/></svg></div><span class="n">DOMAIN 02</span><h3>行列推理</h3><p>縦と横、2方向の規則を同時に扱う力。複数の条件を頭の中で組み合わせる仕事に効きます。</p></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1E4FD8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div><span class="n">DOMAIN 03</span><h3>空間・回転</h3><p>図形を頭の中で回転・反転させる力。地図、設計、手術、スポーツなど身体感覚の仕事に関係します。</p></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1E4FD8" stroke-width="1.8" stroke-linecap="round"><path d="M4 18V9M9 18V5M14 18v-7M19 18V3"/><path d="M3 21h18"/></svg></div><span class="n">DOMAIN 04</span><h3>数量・規則</h3><p>個数や割合の増減から法則を見つける力。数字を扱う職種で差が出る領域です。</p></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1E4FD8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a4 4 0 0 0-4 4v1a3 3 0 0 0-1 5.5V16a3 3 0 0 0 3 3h2"/><path d="M15 4a4 4 0 0 1 4 4v1a3 3 0 0 1 1 5.5V16a3 3 0 0 1-3 3h-2"/><path d="M12 4v15"/></svg></div><span class="n">DOMAIN 05</span><h3>ワーキングメモリ</h3><p>数秒だけ見た情報を保持して使う力。会話や会議で「さっきの話」を正確に扱えるかを左右します。</p></div>
+      <div class="card" style="background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border:0"><span class="n" style="color:#FFD37A">RESULT</span><h3>推定IQ＋脳タイプ</h3><p style="color:rgba(255,255,255,.8)">5領域の凸凹から、6つの脳タイプのどれかを判定。あなたの強みの出し方と、向いている仕事の方向性がわかります。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-navy">
+  <div class="wrap">
+    <span class="eyebrow">How it works</span>
+    <h2 class="t">診断の流れ</h2>
+    <div class="grid g2" style="align-items:center">
+      <div class="steps">
+        <div class="st"><div><h3>図形問題に20問答える</h3><p>6つの選択肢から1つを選ぶだけ。制限時間は全体で10分。言葉は一切出てきません。</p></div></div>
+        <div class="st"><div><h3>推定IQと上位何%かが出る</h3><p>平均100・標準偏差15の尺度で推定。全体のどこに位置するかを分布カーブで表示します。</p></div></div>
+        <div class="st"><div><h3>脳タイプと向いている方向性</h3><p>5領域のバランスから脳タイプを判定。有料レポートでは職業適性と伸ばし方まで解説します。</p></div></div>
+      </div>
+      <div class="stats">
+        <div><b>20<small>問</small></b><span>言葉を使わない図形問題</span></div>
+        <div><b>5<small>分</small></b><span>平均所要時間</span></div>
+        <div><b>6<small>タイプ</small></b><span>脳タイプの判定数</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec types">
+  <div class="wrap">
+    <div style="text-align:center"><span class="eyebrow">6 Brain Types</span>
+    <h2 class="t">6つの脳タイプ</h2>
+    <p class="lead" style="margin-inline:auto">IQの数値だけでは「何が得意か」はわかりません。同じIQ115でも、得意な領域が違えば向いている仕事は別物です。</p></div>
+    <div class="grid g3" style="margin-top:36px">
+      <div class="card"><span class="em">TYPE 01</span><h3>パターンハンター型</h3><p>規則の発見が速く、少ない情報から全体像を組み立てる。</p><div class="jobs"><span>企画</span><span>エンジニア</span><span>コンサル</span></div></div>
+      <div class="card"><span class="em">TYPE 02</span><h3>空間デザイナー型</h3><p>頭の中で立体を回せる。図面や配置を見た瞬間に理解する。</p><div class="jobs"><span>設計</span><span>デザイン</span><span>外科</span></div></div>
+      <div class="card"><span class="em">TYPE 03</span><h3>ロジックビルダー型</h3><p>数量の規則に強い。筋道を一段ずつ積み上げるのが得意。</p><div class="jobs"><span>財務</span><span>データ分析</span><span>研究</span></div></div>
+      <div class="card"><span class="em">TYPE 04</span><h3>記憶プロセッサ型</h3><p>一度見た情報を保持して使える。細部の抜け漏れに気づく。</p><div class="jobs"><span>医療</span><span>法務</span><span>通訳</span></div></div>
+      <div class="card"><span class="em">TYPE 05</span><h3>瞬発思考型</h3><p>速く、かつ正確。判断の速さが価値になる場面で輝く。</p><div class="jobs"><span>営業</span><span>トレーダー</span><span>救急</span></div></div>
+      <div class="card"><span class="em">TYPE 06</span><h3>バランサー型</h3><p>全領域が均等。どんな仕事も平均以上にこなす万能型。</p><div class="jobs"><span>マネジメント</span><span>起業</span><span>教育</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt faq">
+  <div class="wrap" style="max-width:760px">
+    <span class="eyebrow">FAQ</span>
+    <h2 class="t">よくある質問</h2>
+    <details open><summary>本当に無料ですか？</summary><p>推定IQ・パーセンタイル・脳タイプ・5領域のバーまでは無料で表示します。領域別の詳細解説・職業適性・伸ばし方をまとめた詳細レポートのみ有料です。料金と自動更新の条件は決済前に必ず明記します。</p></details>
+    <details><summary>医療機関のIQ検査と同じですか？</summary><p>違います。WAISなどの標準化された検査ではなく、図形推理の正答率と解答時間から統計的に推定した参考値です。診断や治療の判断には使えません。</p></details>
+    <details><summary>所要時間はどのくらいですか？</summary><p>平均5分前後です。制限時間は全体で10分。残り時間は画面上部に表示されます。</p></details>
+    <details><summary>途中でやめたらどうなりますか？</summary><p>結果は保存されません。最初からやり直してください。1問ごとの制限はないので、落ち着いて取り組めます。</p></details>
+    <details><summary>何度でも受けられますか？</summary><p>受けられますが、同じ問題なので2回目以降は数値が高く出ます。初回の結果を参考にしてください。</p></details>
+  </div>
+</section>
+
+<section class="sec sec-navy final">
+  <div class="wrap">
+    <h2 class="t">思い込みで決めつける前に、<br>5分だけ確かめてみませんか。</h2>
+    <p class="lead" style="margin:0 auto 30px">20問・約5分。結果はその場で表示されます。</p>
+    <a class="btn btn-gold" href="quiz.html">診断してみる →</a>
+    <p class="note">登録不要・無料で結果表示・言葉を使わない図形問題のみ</p>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="wrap">
+    <div>© AI-KNOW　本テストは心理測定上の標準化を行っていない推定値です。医療・教育上の判断には使用しないでください。</div>
+    <nav><a href="#">利用規約</a><a href="#">プライバシーポリシー</a><a href="#">特定商取引法に基づく表記</a></nav>
+  </div>
+</footer>
+
+<div class="mcta"><a class="btn btn-primary" href="quiz.html">診断してみる →</a></div>
+
+<script src="figures.js"></script>
+<script>
+(function(){
+  // ヒーローのサンプル行列：行＝形、列＝塗り
+  var shapes=['circle','square','triangle'],fills=['solid','empty','half'];
+  var m=document.getElementById('sampleMat'),html='';
+  for(var r=0;r<3;r++)for(var c=0;c<3;c++){
+    var last=(r===2&&c===2);
+    html+='<div class="fig'+(last?' q':'')+'">'+drawFigure(last?{question:true}:{shape:shapes[r],fill:fills[c],color:'blue'})+'</div>';
+  }
+  m.innerHTML=html;
+  var opts=[{shape:'triangle',fill:'solid'},{shape:'circle',fill:'half'},{shape:'triangle',fill:'half'},{shape:'square',fill:'half'},{shape:'triangle',fill:'empty'},{shape:'diamond',fill:'half'}];
+  document.getElementById('sampleOpts').innerHTML=opts.map(function(o,i){o.color='blue';return '<div class="fig'+(i===2?' on':'')+'">'+drawFigure(o)+'</div>';}).join('');
+})();
+</script>
+</body>
+</html>
