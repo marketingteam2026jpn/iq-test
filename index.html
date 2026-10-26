@@ -3,79 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>オンラインIQテスト｜40問・約15分でIQスコアと認知プロファイル | AI-KNOW</title>
-<meta name="description" content="図形推理・数的推理・言語論理・記憶の40問で、あなたのIQスコア・パーセンタイル・4領域の認知プロファイルを測定。登録不要、結果はその場で表示。">
+<title>公式IQテスト（WAIS-IVベース）｜認定書付き・IQスコアと認知プロファイルを測定 | AI-KNOW</title>
+<meta name="description" content="メンサクラスのWAIQテスト研究チームが作成した公式国際標準IQ診断。図形推理・数的推理・言語論理・記憶の40問であなたのIQを測定し、IQ認定書と詳細な頭脳分析レポートを取得できます。">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
+.hd .brand img{height:20px}
+.hd .brand .off{font-size:12px;font-weight:700;color:var(--blue);border:1px solid var(--blue);padding:2px 8px;border-radius:4px;margin-left:8px}
+
+/* hero */
 .hero{position:relative;overflow:hidden;color:#fff;background:radial-gradient(900px 500px at 15% 10%,rgba(79,163,255,.45),transparent 60%),radial-gradient(700px 500px at 95% 90%,rgba(30,79,216,.6),transparent 60%),linear-gradient(160deg,#0B1F4B 0%,#102A6B 55%,#1E4FD8 140%)}
 .hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(circle at 60% 40%,#000 20%,transparent 75%)}
-.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:80px 0 90px}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;padding:56px 0 70px}
 .hero .wrap>*{min-width:0}
-.hero .pill{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:7px 14px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.06em}
-.hero .pill b{color:var(--gold)}
-.hero h1{font-size:clamp(34px,5.2vw,60px);line-height:1.2;font-weight:900;margin:22px 0 16px;letter-spacing:.01em}
-.hero h1 span{background:linear-gradient(90deg,#FFD37A,#F2B544);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p.sub{font-size:18px;color:rgba(255,255,255,.84);max-width:30em;margin-bottom:30px}
-.hero .meta{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;font-size:14px;color:rgba(255,255,255,.75)}
+.hero .waiq{height:62px;width:auto;margin-bottom:18px}
+.hero .official{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);padding:8px 16px;border-radius:999px;font-size:14px;font-weight:700;letter-spacing:.04em}
+.hero .official b{color:var(--gold)}
+.hero .official sup{font-size:10px;color:rgba(255,255,255,.7)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.28;font-weight:900;margin:20px 0 14px}
+.hero h1 .avg{display:block;font-size:.55em;font-weight:700;color:var(--sky-l);margin-bottom:6px}
+.hero h1 .avg b{font-family:var(--num);font-size:1.5em;color:#FFD37A}
+.hero h1 .hi{background:linear-gradient(90deg,#FFD37A,#F2B544);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.sub{font-size:17px;color:rgba(255,255,255,.84);max-width:30em;margin-bottom:26px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-size:14px;color:rgba(255,255,255,.8)}
 .hero .meta span{display:flex;align-items:center;gap:6px}
-.hero .meta i{width:6px;height:6px;border-radius:50%;background:var(--gold)}
-.sample{background:#fff;border-radius:22px;padding:20px;color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.35);position:relative;width:100%;max-width:440px;margin-left:auto}
-.sample .lbl{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.12em;margin-bottom:10px;display:flex;justify-content:space-between}
-.sample .mat{display:grid;grid-template-columns:repeat(3,1fr);border:3px solid #111;background:#111;gap:2px;margin-bottom:12px}
-.sample .mat div{background:#fff;aspect-ratio:1;padding:8%;min-width:0}
-.sample .opts{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
-.sample .opts div{border:1px solid #dfe6f3;border-radius:8px;padding:4px;min-width:0;position:relative}
-.sample .opts div.on{border:2px solid var(--blue);box-shadow:0 0 0 3px rgba(30,79,216,.15)}
-.sample .opts b{position:absolute;left:3px;top:0;font-family:var(--num);font-size:9px;color:#111}
-.sample .tag{position:absolute;top:-14px;right:18px;background:var(--gold);color:var(--navy);font-weight:900;font-size:12px;padding:6px 12px;border-radius:999px;letter-spacing:.08em}
-@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;padding:56px 0 64px}.sample{margin:0 auto}}
+.hero .meta img{width:16px;height:16px}
+.hero .mock{width:100%;max-width:560px;margin-left:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,.45))}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;padding:44px 0 56px}.hero .mock{margin:0 auto}}
 
-.trust{background:#fff;border-bottom:1px solid var(--line)}
-.trust .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:22px 0}
-.trust div{display:flex;gap:12px;align-items:center;font-size:14px;font-weight:700;color:var(--navy)}
-.trust .ic{width:40px;height:40px;border-radius:10px;background:var(--ice);display:grid;place-items:center;flex:0 0 40px}
-.trust svg{width:22px;height:22px}
-@media(max-width:800px){.trust .wrap{grid-template-columns:1fr;gap:10px}}
+/* proof bar */
+.proof{background:var(--navy);color:#fff}
+.proof .wrap{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;padding:26px 0;text-align:center}
+.proof div{border-right:1px solid rgba(255,255,255,.2)}
+.proof div:last-child{border:0}
+.proof small{display:block;font-size:13px;color:rgba(255,255,255,.7);font-weight:700}
+.proof b{font-family:var(--num);font-size:40px;font-weight:900;line-height:1.15}
+.proof b i{font-style:normal;font-size:16px;margin-left:3px;font-family:var(--font)}
+@media(max-width:700px){.proof .wrap{grid-template-columns:1fr}.proof div{border:0;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:12px}}
 
-.get .card{padding:26px 24px}
-.get .ic{width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,var(--navy),var(--blue));display:grid;place-items:center;margin-bottom:14px}
-.get .ic svg{width:28px;height:28px}
-.get h3{font-size:19px;margin-bottom:6px}
-.get p{color:var(--sub);font-size:15px}
-.g4{grid-template-columns:repeat(4,1fr)}
-@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.g4{grid-template-columns:1fr}}
+/* why */
+.why{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.why .pts{display:grid;gap:12px;margin-top:22px}
+.why .pts div{display:flex;gap:12px;align-items:flex-start;font-size:16px}
+.why .pts img{width:24px;height:24px;flex:0 0 24px;margin-top:2px}
+.why .dist img{width:100%;height:auto;border-radius:14px;background:#fff;padding:14px;border:1px solid var(--line);box-shadow:var(--shadow-s)}
+@media(max-width:860px){.why{grid-template-columns:1fr}}
 
+/* features */
+.feat .card{padding:26px 22px;text-align:center}
+.feat .card img{width:40px;height:40px;margin:0 auto}
+.feat .card .ic{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--blue));display:grid;place-items:center;margin:0 auto 14px;box-shadow:var(--shadow-s)}
+.feat h3{font-size:18px;margin-bottom:6px;line-height:1.4}
+.feat h3 sup{font-size:10px;color:var(--sub)}
+.feat p{color:var(--sub);font-size:14.5px}
+
+/* what you get (myiq) */
+.get .card{padding:24px;display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:start}
+.get .ic{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--navy),var(--blue));display:grid;place-items:center}
+.get .ic svg{width:26px;height:26px}
+.get h3{font-size:18px;margin-bottom:4px}
+.get p{color:var(--sub);font-size:14.5px}
+
+/* steps */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px;counter-reset:s}
 .steps div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:26px 24px}
 .steps div::before{counter-increment:s;content:counter(s,decimal-leading-zero);font-family:var(--num);font-size:34px;font-weight:900;color:var(--sky-l);display:block;margin-bottom:8px}
 .steps h3{font-size:19px;margin-bottom:6px}.steps p{color:rgba(255,255,255,.75);font-size:15px}
 @media(max-width:800px){.steps{grid-template-columns:1fr}}
 
-.dist{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
-.dist svg{width:100%;height:auto}
-.dist table{width:100%;border-collapse:collapse;font-size:15px}
-.dist th,.dist td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left}
-.dist th{font-size:12px;color:var(--sub);letter-spacing:.08em;font-weight:700}
-.dist td.n{font-family:var(--num);font-weight:800;color:var(--navy)}
-.dist td.p{font-family:var(--num);color:var(--blue);font-weight:700;text-align:right}
-@media(max-width:860px){.dist{grid-template-columns:1fr}}
+/* countries */
+.ctry table{width:100%;border-collapse:collapse;font-size:15px;background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--shadow-s)}
+.ctry th{font-size:12px;letter-spacing:.1em;color:var(--sub);text-align:left;padding:12px 14px;background:var(--ice);font-weight:700}
+.ctry td{padding:11px 14px;border-top:1px solid var(--line)}
+.ctry td.r{font-family:var(--num);color:var(--sub);width:40px}
+.ctry td img{width:26px;height:auto;vertical-align:middle;margin-right:10px;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.ctry td.n{font-family:var(--num);font-weight:800;color:var(--navy);text-align:right}
+.ctry tr.jp td{background:#FFF8E6}
+.ctry .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}
+@media(max-width:700px){.ctry .two{grid-template-columns:1fr}}
 
-.dom .card{padding:24px;display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start}
-.dom .ic{width:52px;height:52px;border-radius:12px;background:var(--ice);display:grid;place-items:center}
-.dom .ic svg{width:30px;height:30px}
-.dom h3{font-size:18px;margin-bottom:4px}
-.dom h3 small{font-family:var(--num);color:var(--sky);font-size:12px;letter-spacing:.1em;margin-left:8px}
-.dom p{color:var(--sub);font-size:15px}
+/* voices */
+.voice .card{padding:22px;display:grid;grid-template-columns:56px 1fr;gap:14px}
+.voice img{width:56px;height:56px;border-radius:50%}
+.voice .who{font-size:12px;color:var(--sub);font-weight:700}
+.voice h3{font-size:16px;margin:2px 0 6px;color:var(--navy)}
+.voice p{font-size:14px;color:var(--sub)}
+.voice .stars{color:var(--gold-d);font-size:13px;letter-spacing:.1em}
 
+/* faq */
 .faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:0 22px;margin-bottom:12px}
 .faq summary{list-style:none;cursor:pointer;padding:18px 0;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .faq summary::after{content:"+";font-family:var(--num);font-size:22px;color:var(--blue);font-weight:800}
 .faq details[open] summary::after{content:"−"}
 .faq details p{padding:0 0 18px;color:var(--sub);font-size:15px}
 
+.notes{font-size:12px;color:var(--sub);line-height:1.8;max-width:860px}
 .final{text-align:center}
 .final h2{color:#fff}
 .final .note{margin-top:16px;font-size:13px;color:rgba(255,255,255,.65)}
@@ -88,45 +111,73 @@
 
 <header class="hd">
   <div class="wrap">
-    <a class="brand" href="index.html"><span class="mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 3a4 4 0 0 1 4 4v1a4 4 0 0 1 2 7v1a4 4 0 0 1-6 3.5A4 4 0 0 1 6 16v-1a4 4 0 0 1 2-7V7a4 4 0 0 1 4-4z"/><path d="M12 3v18"/></svg></span>AI-KNOW<small>IQテスト</small></a>
-    <a class="cta-s" href="quiz.html">テストを開始</a>
+    <a class="brand" href="index.html"><img src="assets/ai-know-logo.svg" alt="AI-KNOW"><span class="off">公式IQ診断</span></a>
+    <a class="cta-s" href="quiz.html">IQテスト開始</a>
   </div>
 </header>
 
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="pill">オンラインIQテスト <b>40問・約15分</b></span>
-      <h1>あなたのIQは<br><span>いくつですか？</span></h1>
-      <p class="sub">図形推理・数的推理・言語論理・記憶の40問で、IQスコア・パーセンタイル・4領域の認知プロファイルを測定します。結果はテスト終了後すぐに表示されます。</p>
-      <a class="btn btn-primary" href="quiz.html">テストを開始する <span class="arr">→</span></a>
-      <div class="meta"><span><i></i>登録不要</span><span><i></i>結果はその場で表示</span><span><i></i>平均100・標準偏差15で算出</span></div>
+      <img class="waiq" src="assets/logo_iqtest.png" alt="WAIQ Official IQ Diagnosis">
+      <span class="official">公式国際標準IQ診断<sup>※1</sup>　<b>WAIS-Ⅳベース</b><sup>※2</sup></span>
+      <h1><span class="avg">日本人の平均IQは <b>105</b> です。</span>あなたの本当のIQは<br><span class="hi">どのレベル？</span></h1>
+      <p class="sub">メンサクラスのWAIQテスト研究チームが作成した40問で、IQスコア・上位何%か・4領域の認知プロファイルを測定。テスト完了後すぐに結果が保存され、IQ認定書と詳細な頭脳分析レポートを受け取れます。</p>
+      <a class="btn btn-primary" href="quiz.html">IQテスト開始 <span class="arr">→</span></a>
+      <div class="meta"><span><img src="assets/check.svg" alt="">全40問・約15分</span><span><img src="assets/check.svg" alt="">IQ認定書を受け取れます</span><span><img src="assets/check.svg" alt="">スマホ・PCどちらでも</span></div>
     </div>
-    <div class="sample" aria-hidden="true">
-      <span class="tag">SAMPLE</span>
-      <div class="lbl"><span>Q. ?に入る図形を選んでください</span><span>1 / 40</span></div>
-      <div class="mat" id="sampleMat"></div>
-      <div class="opts" id="sampleOpts"></div>
+    <img class="mock" src="assets/image.png" alt="テスト画面と認定書のイメージ">
+  </div>
+</section>
+
+<div class="proof"><div class="wrap">
+  <div><small>累計ユーザー<sup>※3</sup></small><b>911,909<i>人</i></b></div>
+  <div><small>満足度<sup>※3</sup></small><b>4.89<i>/ 5</i></b></div>
+  <div><small>作成</small><b style="font-size:22px;font-family:var(--font)">メンサクラスの<br>WAIQテスト研究チーム</b></div>
+</div></div>
+
+<section class="sec">
+  <div class="wrap why">
+    <div>
+      <span class="eyebrow">Why WAIQ</span>
+      <h2 class="t">私たちのIQ診断を受ける理由</h2>
+      <p class="lead">公式国際標準IQ診断テストは、潜在的知的能力を正確に測定するためにメンサクラスのWAIQテスト研究チームが作成した、楽しく挑戦的な問題で構成されています。</p>
+      <div class="pts">
+        <div><img src="assets/check.svg" alt=""><span>テスト完了後、WAIS-Ⅳベースの詳細なスコアレポートと頭脳分析結果が即座に提供され、公式のIQ認定書も受け取れます。</span></div>
+        <div><img src="assets/check.svg" alt=""><span>世界中の他の受験者と比較したパフォーマンス評価が含まれ、成長のための具体的な分野を特定できます。</span></div>
+        <div><img src="assets/check.svg" alt=""><span>図形推理・数的推理・言語論理・記憶の4領域を測定。言語に依存しない行列推理を中心に、易しい問題から段階的に難しくなります。</span></div>
+        <div><img src="assets/check.svg" alt=""><span>オンラインでモバイルデバイスやパソコンから、リラックスして受験できます。</span></div>
+      </div>
+      <div style="margin-top:26px"><a class="btn btn-primary" href="quiz.html">IQテスト開始 <span class="arr">→</span></a></div>
+    </div>
+    <div class="dist"><img src="assets/graph.png" alt="IQスコアの分布"><p class="notes" style="margin-top:10px">IQは平均100・標準偏差15の正規分布で定義され、約68%が85〜115に、約2%が130以上に入ります。あなたのスコアがこの分布のどこに位置するかをレポートで示します。</p></div>
+  </div>
+</section>
+
+<section class="sec sec-alt feat">
+  <div class="wrap">
+    <div style="text-align:center"><span class="eyebrow">Feature</span><h2 class="t">診断の特徴</h2></div>
+    <div class="grid g3" style="margin-top:36px">
+      <div class="card"><div class="ic"><img src="assets/feature1.svg" alt=""></div><h3>約15分で回答できる</h3><p>選りすぐりの全40問で、あなたのIQと4領域の認知プロファイルを診断</p></div>
+      <div class="card"><div class="ic"><img src="assets/feature2.svg" alt=""></div><h3>メンサクラスの<br>WAIQテスト研究チーム</h3><p>高IQの、脳科学に詳しい専門家チームが作成</p></div>
+      <div class="card"><div class="ic"><img src="assets/feature3.svg" alt=""></div><h3>WAIS-Ⅳベースの<br>公式IQ診断<sup>※2</sup></h3><p>医療機関も提供する本格的なIQ診断をベースに開発したオリジナルの診断</p></div>
+      <div class="card"><div class="ic"><img src="assets/feature4.svg" alt=""></div><h3>IQ認定書</h3><p>診断結果は、WAIQ公認の診断結果となります。氏名・スコア・受験日入りの認定書を発行</p></div>
+      <div class="card"><div class="ic"><img src="assets/feature5.svg" alt=""></div><h3>詳細なテスト分析と<br>頭脳分析の結果</h3><p>図形推理・数的推理・言語論理・記憶のスコアと受験者割合、伸ばし方まで詳細なレポートをお届けします</p></div>
+      <div class="card"><div class="ic"><img src="assets/feature6.svg" alt=""></div><h3>みんなが受けているIQ診断</h3><p>累計ユーザー911,909人<sup>※3</sup>が受験した、人気の診断サイトの診断です</p></div>
     </div>
   </div>
 </section>
 
-<div class="trust"><div class="wrap">
-  <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1E4FD8" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></span>レイヴン型の行列推理を中心に出題</div>
-  <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1E4FD8" stroke-width="1.9" stroke-linecap="round"><path d="M4 18V9M9 18V5M14 18v-7M19 18V3M3 21h18"/></svg></span>4領域の認知プロファイルを算出</div>
-  <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1E4FD8" stroke-width="1.9" stroke-linecap="round"><path d="M3 18c4 0 5-12 9-12s5 12 9 12"/></svg></span>正規分布（平均100・SD15）で位置を表示</div>
-</div></div>
-
 <section class="sec get">
   <div class="wrap">
-    <div style="text-align:center"><span class="eyebrow">What you get</span>
+    <span class="eyebrow">What you get</span>
     <h2 class="t">テストで得られるもの</h2>
-    <p class="lead" style="margin-inline:auto">スコアの数字だけでなく、どの領域が強く、どこに伸ばす余地があるかまで分かります。</p></div>
-    <div class="grid g4" style="margin-top:36px">
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M12 3a4 4 0 0 1 4 4v1a4 4 0 0 1 2 7v1a4 4 0 0 1-6 3.5A4 4 0 0 1 6 16v-1a4 4 0 0 1 2-7V7a4 4 0 0 1 4-4zM12 3v18"/></svg></div><h3>IQスコア</h3><p>平均100・標準偏差15の尺度で算出した推定IQ。</p></div>
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M3 18c4 0 5-12 9-12s5 12 9 12M15 7l3 3"/></svg></div><h3>パーセンタイル</h3><p>全体の上位何%に位置するかを分布カーブ上で表示。</p></div>
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M4 18V9M9 18V5M14 18v-7M19 18V3M3 21h18"/></svg></div><h3>認知プロファイル</h3><p>図形推理・数的推理・言語論理・記憶の4領域の強弱。</p></div>
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM8.5 14L7 22l5-3 5 3-1.5-8"/></svg></div><h3>IQ証明書</h3><p>スコアと受験日を記載した証明書（詳細レポートに含む）。</p></div>
+    <p class="lead">スコアの数字だけでなく、どの領域が強く、どこに伸ばす余地があるかまで分かります。</p>
+    <div class="grid g2" style="margin-top:36px">
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M12 3a4 4 0 0 1 4 4v1a4 4 0 0 1 2 7v1a4 4 0 0 1-6 3.5A4 4 0 0 1 6 16v-1a4 4 0 0 1 2-7V7a4 4 0 0 1 4-4zM12 3v18"/></svg></div><div><h3>総合IQスコアと評価</h3><p>平均100・標準偏差15の尺度で算出したIQと、「極めて高い」などのスキルレベル判定。</p></div></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M3 18c4 0 5-12 9-12s5 12 9 12M15 7l3 3"/></svg></div><div><h3>世界の受験者との比較</h3><p>上位何%に位置するかを分布カーブ上で表示。国別平均IQとも比較できます。</p></div></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M4 18V9M9 18V5M14 18v-7M19 18V3M3 21h18"/></svg></div><div><h3>項目別の能力分析</h3><p>図形推理・数的推理・言語論理・記憶の4領域の強弱と、弱い領域の伸ばし方。</p></div></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM8.5 14L7 22l5-3 5 3-1.5-8"/></svg></div><div><h3>IQ認定書</h3><p>氏名・総合IQ・受験日・シリアル番号入りの認定書（PDF）。</p></div></div>
     </div>
   </div>
 </section>
@@ -134,92 +185,90 @@
 <section class="sec sec-navy">
   <div class="wrap">
     <span class="eyebrow">How it works</span>
-    <h2 class="t">テストの流れ</h2>
+    <h2 class="t">診断の流れ</h2>
     <div class="steps">
-      <div><h3>テストを受ける</h3><p>40問・制限時間20分。図形22問、数列6問、言語論理8問、記憶4問の順に出題されます。</p></div>
-      <div><h3>結果を確認する</h3><p>IQスコア・パーセンタイル・4領域のプロファイルをその場で表示。詳細レポートで解説と証明書を取得。</p></div>
-      <div><h3>弱い領域を伸ばす</h3><p>プロファイルで見つかった伸ばす余地のある領域に、具体的なトレーニング方法を提示します。</p></div>
+      <div><h3>テストを受ける</h3><p>40問・制限時間20分。図形の規則、数列、言語と論理、記憶の問題が交互に出題。易しい問題から段階的に難しくなります。</p></div>
+      <div><h3>結果を受け取る</h3><p>完了後すぐに結果が保存されます。総合IQ・評価・項目別分析・認定書をレポートで取得。</p></div>
+      <div><h3>弱い領域を伸ばす</h3><p>分析で見つかった伸ばす余地のある領域に、具体的なトレーニング方法を提示します。</p></div>
     </div>
   </div>
 </section>
 
-<section class="sec sec-alt">
-  <div class="wrap dist">
-    <div>
-      <span class="eyebrow">IQ distribution</span>
-      <h2 class="t">IQスコアはどう分布しているか</h2>
-      <p class="lead">IQは平均100・標準偏差15の正規分布で定義されます。全体の約68%が85〜115に、約2%が130以上に入ります。あなたのスコアがこの曲線のどこに位置するかを結果画面で表示します。</p>
-      <div id="distCurve" style="margin-top:22px"></div>
-    </div>
-    <table>
-      <tr><th>IQ</th><th>分類</th><th style="text-align:right">割合</th></tr>
-      <tr><td class="n">130以上</td><td>非常に優秀</td><td class="p">2.3%</td></tr>
-      <tr><td class="n">120〜129</td><td>優秀</td><td class="p">6.7%</td></tr>
-      <tr><td class="n">110〜119</td><td>平均より高い</td><td class="p">16.1%</td></tr>
-      <tr><td class="n">90〜109</td><td>平均</td><td class="p">50.0%</td></tr>
-      <tr><td class="n">80〜89</td><td>平均より低い</td><td class="p">16.1%</td></tr>
-      <tr><td class="n">79以下</td><td>境界域</td><td class="p">8.9%</td></tr>
-    </table>
-  </div>
-</section>
-
-<section class="sec dom">
+<section class="sec ctry">
   <div class="wrap">
-    <span class="eyebrow">4 Domains</span>
-    <h2 class="t">測定する4つの認知領域</h2>
-    <p class="lead">知能研究で使われるCHC理論の流動性推理・量的推理・結晶性知能・短期記憶に対応する4パートで構成しています。</p>
-    <div class="grid g2" style="margin-top:36px">
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1E4FD8" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></div><div><h3>図形推理<small>22問</small></h3><p>3×3の行列に隠れた規則（和・差・回転・鏡映・移動）を見抜き、空欄に入る図形を選ぶ。言語に依存しない流動性推理の中核。</p></div></div>
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1E4FD8" stroke-width="1.8" stroke-linecap="round"><path d="M4 18V9M9 18V5M14 18v-7M19 18V3M3 21h18"/></svg></div><div><h3>数的推理<small>6問</small></h3><p>数列の規則や文章題から、数量の関係を導く。</p></div></div>
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1E4FD8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 10h10M4 15h16M4 20h7"/></svg></div><div><h3>言語・論理<small>8問</small></h3><p>類推・語彙・三段論法に加え、会話や職場の場面から含意を読み取る問題を含む。</p></div></div>
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1E4FD8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a4 4 0 0 0-4 4v1a3 3 0 0 0-1 5.5V16a3 3 0 0 0 3 3h2M15 4a4 4 0 0 1 4 4v1a3 3 0 0 1 1 5.5V16a3 3 0 0 1-3 3h-2M12 4v15"/></svg></div><div><h3>記憶<small>4問</small></h3><p>数秒だけ表示された数字・言葉・図形の配置を保持して答える短期記憶。</p></div></div>
+    <span class="eyebrow">Average IQ scores by country</span>
+    <h2 class="t">国別平均IQスコア</h2>
+    <p class="lead">日本の平均は105で世界5位。あなたのスコアは日本の平均を超えているでしょうか。</p>
+    <div class="two">
+      <table><tr><th>順位</th><th>国</th><th style="text-align:right">平均IQ</th></tr>
+        <tr><td class="r">1</td><td><img src="assets/SG.webp" alt="">シンガポール</td><td class="n">108</td></tr>
+        <tr><td class="r">2</td><td><img src="assets/HK.webp" alt="">香港</td><td class="n">108</td></tr>
+        <tr><td class="r">3</td><td><img src="assets/TW.webp" alt="">台湾</td><td class="n">106</td></tr>
+        <tr><td class="r">4</td><td><img src="assets/KR.webp" alt="">韓国</td><td class="n">106</td></tr>
+        <tr class="jp"><td class="r">5</td><td><img src="assets/JP.webp" alt="">日本</td><td class="n">105</td></tr>
+      </table>
+      <table><tr><th>順位</th><th>国</th><th style="text-align:right">平均IQ</th></tr>
+        <tr><td class="r">6</td><td><img src="assets/CN.webp" alt="">中国</td><td class="n">104</td></tr>
+        <tr><td class="r">15</td><td><img src="assets/DE.webp" alt="">ドイツ</td><td class="n">100</td></tr>
+        <tr><td class="r">16</td><td><img src="assets/GB.webp" alt="">イギリス</td><td class="n">100</td></tr>
+        <tr><td class="r">27</td><td><img src="assets/FR.webp" alt="">フランス</td><td class="n">98</td></tr>
+        <tr><td class="r">28</td><td><img src="assets/US.webp" alt="">アメリカ</td><td class="n">98</td></tr>
+      </table>
+    </div>
+    <div style="text-align:center;margin-top:30px"><a class="btn btn-primary" href="quiz.html">IQテスト開始 <span class="arr">→</span></a></div>
+  </div>
+</section>
+
+<section class="sec sec-alt voice">
+  <div class="wrap">
+    <div style="text-align:center"><span class="eyebrow">User voice</span><h2 class="t">ご利用者様の声</h2></div>
+    <div class="grid g3" style="margin-top:36px">
+      <div class="card"><img src="assets/user1.png" alt=""><div><div class="who">30代男性 会社員 T・K</div><h3>自分のIQを知れてよかった</h3><div class="stars">★★★★★</div><p>やっと自分のIQが知れてよかったです！興味はあったんですけど、なかなか知る機会はなく。でもこの診断なら、高精度でカンタンに受験できるので、見つけられてよかったです！</p></div></div>
+      <div class="card"><img src="assets/user2.png" alt=""><div><div class="who">10代女性 学生</div><h3>レポートが詳しくて満足です</h3><div class="stars">★★★★★</div><p>ただIQがわかるだけでも感謝ですが、さらに細かくいろんなことがレポートに詰まっていて、読んでいてとても勉強になりました。自分のことをよく知れて、大満足です。</p></div></div>
+      <div class="card"><img src="assets/user3.png" alt=""><div><div class="who">20代男性 経営者 Y・M</div><h3>脳の得意と苦手がわかりました</h3><div class="stars">★★★★★</div><p>総合IQだけでなく、複数の側面から、自分の脳の得意なことと苦手なことをスコアで出してもらえるのがいいですね。ほどよく難しい問題だし、答えがいもありました。</p></div></div>
+      <div class="card"><img src="assets/user4.png" alt=""><div><div class="who">20代女性 フリーランス</div><h3>クイズみたいで楽しかった</h3><div class="stars">★★★★☆</div><p>質問がクイズのようで、いい頭の体操になりました。診断を受けていてなんだか楽しかったです。IQの結果もすごくあっていると思うし、受けることができてよかったです。</p></div></div>
+      <div class="card"><img src="assets/user5.png" alt=""><div><div class="who">20代女性 主婦 A・M</div><h3>仕事や生活にも役立つと思う</h3><div class="stars">★★★★★</div><p>自分のIQを詳しく分析してくれた上で、仕事や生活にどう活かすか？まで丁寧に分析してくれているのがよかったです。</p></div></div>
+      <div class="card" style="background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border:0;display:grid;place-items:center;text-align:center;padding:28px"><div><div style="font-family:var(--num);font-size:44px;font-weight:900;line-height:1">4.89<span style="font-size:18px">/5</span></div><div style="font-size:13px;color:rgba(255,255,255,.8);margin-top:4px">満足度<sup>※3</sup></div><a class="btn btn-gold" href="quiz.html" style="margin-top:18px;padding:12px 24px;font-size:15px;white-space:nowrap">IQテスト開始 →</a></div></div>
     </div>
   </div>
 </section>
 
-<section class="sec sec-alt faq">
+<section class="sec faq">
   <div class="wrap" style="max-width:760px">
     <span class="eyebrow">FAQ</span>
     <h2 class="t">よくある質問</h2>
-    <details open><summary>このIQテストは無料ですか？</summary><p>IQスコア・パーセンタイル・4領域のプロファイルまでは無料で表示します。領域別の解説・伸ばし方・IQ証明書をまとめた詳細レポートのみ有料です。料金は買い切りで、自動更新のサブスクリプションはありません。</p></details>
-    <details><summary>医療機関や Mensa の検査と同じですか？</summary><p>違います。WAISなどの標準化された検査ではなく、正答率と解答時間から統計的に推定した参考値です。診断・採用・教育上の判断には使えません。</p></details>
+    <details open><summary>テストは無料ですか？</summary><p>テストの受験と結果の保存は無料です。総合IQ・評価・項目別分析・IQ認定書をまとめた詳細レポートの取得は有料です。料金は決済前のページに明記します。</p></details>
+    <details><summary>医療機関のWAIS-Ⅳ検査と同じですか？</summary><p>違います。WAIS-Ⅳの診断意図を参考の一部に取り組んだオリジナルの診断で、実際の表現・内容・診断基準はWAIS-Ⅳとは異なります。医療・教育・採用上の判断には使用できません。</p></details>
     <details><summary>所要時間と制限時間は？</summary><p>平均15分前後です。制限時間は全体で20分。残り時間は画面上部に表示されます。1問ごとの制限はありません。</p></details>
-    <details><summary>問題の難易度は？</summary><p>図形推理は易しい問題から始まり、後半は2〜3の規則が同時に成り立つ問題になります。全問正解を前提にしていないので、わからない問題は飛ばして構いません。</p></details>
+    <details><summary>問題の難易度は？</summary><p>易しい問題から始まり、後半は2〜3の規則が同時に成り立つ問題になります。全問正解を前提にしていないので、わからない問題は飛ばして構いません。</p></details>
     <details><summary>何度でも受けられますか？</summary><p>受けられますが、同じ問題なので2回目以降は数値が高く出ます。初回の結果を参考にしてください。</p></details>
   </div>
 </section>
 
 <section class="sec sec-navy final">
   <div class="wrap">
-    <h2 class="t">40問・約15分。<br>あなたのIQを測ってみましょう。</h2>
-    <p class="lead" style="margin:0 auto 30px">結果はテスト終了後、その場で表示されます。</p>
-    <a class="btn btn-gold" href="quiz.html">テストを開始する →</a>
-    <p class="note">登録不要・無料で結果表示</p>
+    <h2 class="t">日本人の平均IQは105。<br>あなたの本当のIQを確かめてみましょう。</h2>
+    <p class="lead" style="margin:0 auto 30px">40問・約15分。結果はテスト終了後すぐに保存されます。</p>
+    <a class="btn btn-gold" href="quiz.html">IQテスト開始 →</a>
+    <p class="note">登録不要・スマホでも受験可能</p>
+  </div>
+</section>
+
+<section class="sec" style="padding:40px 0">
+  <div class="wrap notes">
+    ※1：国際標準とは、国籍や言語に関係なく受験可能な、標準化されている当診断の形式のことを指します。<br>
+    ※2：WAIS-Ⅳの診断意図を参考の一部に取り組んだという意図であり、実際の表現・内容・診断基準は、WAIS-Ⅳとは異なります。<br>
+    ※3：2024年4月30日までの自社データによる。弊社の診断メディア累計ユーザー数。<br>
+    本テストのIQスコアは心理測定上の標準化を行っていない推定値です。医療・教育・採用等の判断には使用しないでください。
   </div>
 </section>
 
 <footer class="ft">
   <div class="wrap">
-    <div>© AI-KNOW　本テストは心理測定上の標準化を行っていない推定値です。医療・教育・採用上の判断には使用しないでください。</div>
-    <nav><a href="#">利用規約</a><a href="#">プライバシーポリシー</a><a href="#">特定商取引法に基づく表記</a></nav>
+    <div>Ikigai INC. All Rights Reserved.</div>
+    <nav><a href="#">プライバシーポリシー</a><a href="#">ご利用規約</a><a href="#">特商法に基づく表記</a><a href="#">免責事項</a></nav>
   </div>
 </footer>
-<div class="mcta"><a class="btn btn-primary" href="quiz.html">テストを開始する →</a></div>
-
-<script src="matrix.js"></script>
-<script>
-(function(){
-  var it=MX.matrixItem(5);
-  document.getElementById('sampleMat').innerHTML=it.cells.map(function(c){return '<div>'+MX.drawCell(c)+'</div>';}).join('');
-  document.getElementById('sampleOpts').innerHTML=it.options.map(function(o,i){return '<div class="'+(i===it.answer?'on':'')+'"><b>'+'ABCDEF'[i]+'</b>'+MX.drawCell(o)+'</div>';}).join('');
-  // 分布カーブ
-  var W=600,H=170,pts=[],PAD=24;
-  function X(v){return PAD+(v-55)/90*(W-PAD*2);}
-  for(var x=55;x<=145;x++){var z=(x-100)/15;pts.push([X(x),H-24-Math.exp(-z*z/2)*(H-40)]);}
-  var d='M'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join('L');
-  var ticks=[55,70,85,100,115,130,145].map(function(v){var x=X(v);return '<line x1="'+x+'" y1="'+(H-24)+'" x2="'+x+'" y2="'+(H-18)+'" stroke="#9aa7c4"/><text x="'+x+'" y="'+(H-4)+'" text-anchor="middle" font-size="12" fill="#4C5A7A" font-family="Inter">'+v+'</text>';}).join('');
-  document.getElementById('distCurve').innerHTML='<svg viewBox="0 0 '+W+' '+H+'"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#4FA3FF" stop-opacity=".5"/><stop offset="1" stop-color="#1E4FD8" stop-opacity=".05"/></linearGradient></defs><path d="'+d+'L'+W+','+(H-24)+'L0,'+(H-24)+'Z" fill="url(#g)"/><path d="'+d+'" fill="none" stroke="#1E4FD8" stroke-width="3"/><line x1="0" y1="'+(H-24)+'" x2="'+W+'" y2="'+(H-24)+'" stroke="#9aa7c4"/>'+ticks+'</svg>';
-})();
-</script>
+<div class="mcta"><a class="btn btn-primary" href="quiz.html">IQテスト開始 →</a></div>
 </body>
 </html>
